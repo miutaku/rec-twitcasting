@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'Dockerfile'
+      - 'main.go'
+      - 'go.mod'
+      - 'go.sum'
 
 jobs:
   push:
