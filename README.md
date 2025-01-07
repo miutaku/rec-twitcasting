@@ -1,4 +1,4 @@
-# rec-twitcasting-wine
+# rec-twitcasting
 
 This application is for recording live streams being broadcasted on twitcasting.tv.
 
