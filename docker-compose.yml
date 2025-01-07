@@ -1,0 +1,14 @@
+---
+services:
+  twitcasting-rec:
+    image: ghcr.io/miutaku/rec-twitcasting:latest
+    container_name: twitcasting-rec
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    volumes:
+      - ./config:/config
+      - ./recorded:./recorded
+    environment:
+      - TZ=Asia/Tokyo
+#      - OUTPUT_DIR=/your/path/to/dir
