@@ -25,10 +25,10 @@
           <mxGeometry x="420" y="441.76000000000005" width="100" height="30" as="geometry" />
         </mxCell>
         <mxCell id="17p_4jpaIdI8gEVZot0U-15" value="" style="group" vertex="1" connectable="0" parent="1">
-          <mxGeometry x="840" y="47.84313725490199" width="370" height="740" as="geometry" />
+          <mxGeometry x="840" y="47.84313725490199" width="450" height="740" as="geometry" />
         </mxCell>
         <mxCell id="17p_4jpaIdI8gEVZot0U-13" value="" style="group" vertex="1" connectable="0" parent="17p_4jpaIdI8gEVZot0U-15">
-          <mxGeometry width="370" height="740" as="geometry" />
+          <mxGeometry width="450" height="740" as="geometry" />
         </mxCell>
         <mxCell id="17p_4jpaIdI8gEVZot0U-10" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="17p_4jpaIdI8gEVZot0U-13">
           <mxGeometry x="-170" y="4" width="480" height="736" as="geometry" />
@@ -57,7 +57,7 @@
         <mxCell id="17p_4jpaIdI8gEVZot0U-53" value="Management pod" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="17p_4jpaIdI8gEVZot0U-13">
           <mxGeometry x="77.75" y="666.9268627450981" width="120" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="17p_4jpaIdI8gEVZot0U-73" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="17p_4jpaIdI8gEVZot0U-13" source="17p_4jpaIdI8gEVZot0U-56" target="17p_4jpaIdI8gEVZot0U-71">
+        <mxCell id="17p_4jpaIdI8gEVZot0U-114" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="17p_4jpaIdI8gEVZot0U-13" source="17p_4jpaIdI8gEVZot0U-56" target="17p_4jpaIdI8gEVZot0U-71">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="17p_4jpaIdI8gEVZot0U-56" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn0.iconfinder.com/data/icons/social-media-2104/24/social_media_social_media_logo_docker-128.png" vertex="1" parent="17p_4jpaIdI8gEVZot0U-13">
@@ -128,6 +128,9 @@
         <mxCell id="17p_4jpaIdI8gEVZot0U-61" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;listFile&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="17p_4jpaIdI8gEVZot0U-13">
           <mxGeometry x="320" y="564.116862745098" width="50" height="30" as="geometry" />
         </mxCell>
+        <mxCell id="17p_4jpaIdI8gEVZot0U-94" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;・addCastingUser&lt;/font&gt;&lt;div&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;・delCastingUser&lt;br&gt;&lt;/span&gt;&lt;div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;・checkRecordingState&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;・listFile&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;rotation=0;" vertex="1" parent="17p_4jpaIdI8gEVZot0U-13">
+          <mxGeometry x="320" y="472.156862745098" width="130" height="70" as="geometry" />
+        </mxCell>
         <mxCell id="17p_4jpaIdI8gEVZot0U-29" value="" style="group" vertex="1" connectable="0" parent="1">
           <mxGeometry x="1390" y="360" width="105" height="130.5" as="geometry" />
         </mxCell>
@@ -181,9 +184,6 @@
               <mxPoint x="1272" y="590" />
             </Array>
           </mxGeometry>
-        </mxCell>
-        <mxCell id="17p_4jpaIdI8gEVZot0U-94" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;・addCastingUser&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;・checkRecordingState&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;・listFile&lt;/span&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;rotation=0;" vertex="1" parent="1">
-          <mxGeometry x="1160" y="535" width="130" height="60" as="geometry" />
         </mxCell>
         <mxCell id="17p_4jpaIdI8gEVZot0U-102" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://go-tech.blog/wp-content/uploads/2024/03/image-3-1024x465.png;" vertex="1" parent="1">
           <mxGeometry x="1180" y="376.07000000000005" width="184" height="83.55" as="geometry" />
