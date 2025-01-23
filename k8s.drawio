@@ -129,8 +129,8 @@
         <mxCell id="17p_4jpaIdI8gEVZot0U-117" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="17p_4jpaIdI8gEVZot0U-13" source="17p_4jpaIdI8gEVZot0U-116" target="17p_4jpaIdI8gEVZot0U-14">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="17p_4jpaIdI8gEVZot0U-106" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;addRecordingState&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;updateRecordingState&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;rotation=-90;" vertex="1" parent="17p_4jpaIdI8gEVZot0U-13">
-          <mxGeometry x="360" y="215.096862745098" width="120" height="40" as="geometry" />
+        <mxCell id="17p_4jpaIdI8gEVZot0U-106" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;・addRecordingState&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;・updateRecordingState&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;rotation=-90;" vertex="1" parent="17p_4jpaIdI8gEVZot0U-13">
+          <mxGeometry x="360" y="215.096862745098" width="130" height="40" as="geometry" />
         </mxCell>
         <mxCell id="17p_4jpaIdI8gEVZot0U-102" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://go-tech.blog/wp-content/uploads/2024/03/image-3-1024x465.png;" vertex="1" parent="17p_4jpaIdI8gEVZot0U-13">
           <mxGeometry x="355" y="328.22686274509806" width="184" height="83.55" as="geometry" />
