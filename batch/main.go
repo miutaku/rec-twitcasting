@@ -63,7 +63,7 @@ func task() {
 			fmt.Fprintf(os.Stderr, "Unable to scan row: %v\n", err)
 			return
 		}
-		resp, err := http.Get(fmt.Sprintf("http://localhost:8080/check-live?username=%s", name))
+		resp, err := http.Get(fmt.Sprintf("http://api-rec-twitcasting:8080/check-live?username=%s", name))
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "HTTP request failed: %v\n", err)
 			return
