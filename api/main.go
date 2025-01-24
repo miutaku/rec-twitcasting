@@ -26,13 +26,21 @@ type DBConfig struct {
 
 func getDBConfig() DBConfig {
 	return DBConfig{
-		Host:      os.Getenv("DB_HOST"),
-		Port:      os.Getenv("DB_PORT"),
-		User:      os.Getenv("DB_USER"),
-		Password:  os.Getenv("DB_PASSWORD"),
-		DbName:    os.Getenv("DB_NAME"),
-		TableName: os.Getenv("DB_TABLE_NAME"),
+		Host:      getEnv("DB_HOST", "localhost"),
+		Port:      getEnv("DB_PORT", "5432"), // Default to 5432 if DB_PORT is not set
+		User:      getEnv("DB_USER", "user"),
+		Password:  getEnv("DB_PASSWORD", "password"),
+		DbName:    getEnv("DB_NAME", "dbname"),
+		TableName: getEnv("DB_TABLE_NAME", "tablename"),
 	}
+}
+
+func getEnv(key, fallback string) string {
+	value := os.Getenv(key)
+	if value == "" {
+		return fallback
+	}
+	return value
 }
 
 func updateRecordingState(username string, state bool) error {
