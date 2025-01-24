@@ -1,14 +1,11 @@
 ---
-name: docker push
+name: rec-twitcasting api docker push
 on:
   push:
     branches:
       - main
     paths:
-      - './api/Dockerfile'
-      - './api/main.go'
-      - './api/go.mod'
-      - './api/go.sum'
+      - './api/**'
 
 jobs:
   push:
