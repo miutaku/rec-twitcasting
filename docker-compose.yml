@@ -35,7 +35,7 @@ services:
 
 # db
   postgres-rec-twitcasting:
-    image: postgres:13
+    image: postgres:17.2
     container_name: postgres-rec-twitcasting
     restart: unless-stopped
     environment:
