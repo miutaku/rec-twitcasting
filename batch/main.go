@@ -71,10 +71,12 @@ func task() {
 		}
 		defer resp.Body.Close()
 
-		if resp.StatusCode == http.StatusOK {
-			fmt.Printf("User %s is live\n", name)
-		} else {
-			fmt.Printf("User %s is not live\n", name)
+		if os.Getenv("LOG_LEVEL") == "debug" {
+			if resp.StatusCode == http.StatusOK {
+				fmt.Printf("User %s is live\n", name)
+			} else {
+				fmt.Printf("User %s is not live\n", name)
+			}
 		}
 	}
 }
