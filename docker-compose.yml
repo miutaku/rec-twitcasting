@@ -2,10 +2,10 @@
 services:
 # rec-api
   api-rec-twitcasting:
-    #image: ghcr.io/miutaku/api-rec-twitcasting:latest
-    build:
-      context: .
-      dockerfile: api/Dockerfile
+    image: ghcr.io/miutaku/api-rec-twitcasting:latest
+    #build:
+    #  context: .
+    #  dockerfile: api/Dockerfile
     container_name: api-rec-twitcasting
     restart: unless-stopped
     volumes:
@@ -24,10 +24,10 @@ services:
 
 # batch
   batch-rec-twitcasting:
-    #image: ghcr.io/miutaku/batch-rec-twitcasting:latest
-    build:
-      context: .
-      dockerfile: batch/Dockerfile
+    image: ghcr.io/miutaku/batch-rec-twitcasting:latest
+    #build:
+    #  context: .
+    #  dockerfile: batch/Dockerfile
     restart: unless-stopped
     container_name: batch-rec-twitcasting
     environment:
