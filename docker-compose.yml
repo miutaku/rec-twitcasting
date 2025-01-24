@@ -33,7 +33,7 @@ services:
       - POSTGRES_PASSWORD=rec-twitcasting-pass
       - POSTGRES_DB=rec_twitcasting
     volumes:
-      - ./postgres/init.sql:/docker-entrypoint-initdb.d/
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./postgres/data:/var/lib/postgresql/data
 
 # manage
