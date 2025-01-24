@@ -1,0 +1,34 @@
+---
+name: rec-twitcasting api docker push
+on:
+  push:
+    branches:
+      - develop
+    paths:
+      - 'api/**'
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: create meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.actor }}/api-rec-twitcasting
+          tags: |
+            type=raw,value=latest
+            type=sha,prefix=,suffix=,format=short
+
+      - name: Build container image
+        uses: docker/build-push-action@v5
+        with:
+          file: ./api/Dockerfile
+          push: false
+          platforms: linux/amd64,linux/arm64
