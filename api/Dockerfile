@@ -1,8 +1,8 @@
 # Build stage
 FROM golang:1.23 AS builder
 WORKDIR /app
-COPY . .
-RUN go build -o api-rec-twitcasting ./api/main.go
+COPY api .
+RUN go build -o api-rec-twitcasting ./main.go
 
 # Runtime stage
 FROM alpine:latest
