@@ -42,18 +42,19 @@ services:
       - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./postgres/data:/var/lib/postgresql/data
 
-# manage
-  manage-frontend-rec-twitcasting:
-    image: ghcr.io/miutaku/manage-frontend-rec-twitcasting:latest
-    container_name: frontend-rec-twitcasting
-    restart: unless-stopped
-    ports:
-      - 8888:8888
-
-  manage-backend-rec-twitcasting:
-    image: ghcr.io/miutaku/manage-backend-rec-twitcasting:latest
-    container_name: backend-rec-twitcasting
-    restart: unless-stopped
-    environment:
-      - TZ=Asia/Tokyo
-      #- DATABASE_URL=YOUR_DATABASE_URL
+## manage
+#  manage-frontend-rec-twitcasting:
+#    image: ghcr.io/miutaku/manage-frontend-rec-twitcasting:latest
+#    container_name: frontend-rec-twitcasting
+#    restart: unless-stopped
+#    ports:
+#      - 8888:8888
+#
+#  manage-backend-rec-twitcasting:
+#    image: ghcr.io/miutaku/manage-backend-rec-twitcasting:latest
+#    container_name: backend-rec-twitcasting
+#    restart: unless-stopped
+#    environment:
+#      - TZ=Asia/Tokyo
+#      #- DATABASE_URL=YOUR_DATABASE_URL
+#
