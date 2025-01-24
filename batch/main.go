@@ -3,65 +3,56 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
+	"os/signal"
+	"time"
 
+	"github.com/go-co-op/gocron"
 	_ "github.com/lib/pq"
-	"github.com/robfig/cron/v3"
 )
 
-func getEnv(key, fallback string) string {
-	value, exists := os.LookupEnv(key)
-	if !exists {
-		return fallback
-	}
-	return value
-}
-
-func checkLive(name string) {
-	url := fmt.Sprintf("http://api-rec-twitcasting:8080/check-live?username=%s", name)
-	resp, err := http.Get(url)
+func task() {
+	db, err := sql.Open("postgres", "host=localhost port=5432 user=username password=password dbname=yourdatabase sslmode=disable")
 	if err != nil {
-		log.Printf("Failed to request %s: %v", url, err)
-		return
+		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
+		os.Exit(1)
 	}
-	defer resp.Body.Close()
-	log.Printf("Checked live status for %s, response status: %s", name, resp.Status)
-}
+	defer db.Close()
 
-func fetchAndCheckLive(db *sql.DB) {
-	rows, err := db.Query("SELECT username FROM rec_twitcasting.speakers WHERE recording_state=false")
+	rows, err := db.Query("SELECT name FROM twitcasting.speakers WHERE recording=false")
 	if err != nil {
-		log.Printf("Failed to execute query: %v", err)
+		fmt.Fprintf(os.Stderr, "Query failed: %v\n", err)
 		return
 	}
 	defer rows.Close()
 
 	for rows.Next() {
 		var name string
-		if err := rows.Scan(&name); err != nil {
-			log.Printf("Failed to scan row: %v", err)
+		err := rows.Scan(&name)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Row scan failed: %v\n", err)
 			continue
 		}
-		checkLive(name)
-	}
 
-	if err := rows.Err(); err != nil {
-		log.Printf("Error iterating rows: %v", err)
+		fmt.Printf("Checking live status for user: %s\n", name)
+		resp, err := http.Get(fmt.Sprintf("http://rec-twitcasting:8080/check-live?username=%s", name))
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "HTTP request failed: %v\n", err)
+			continue
+		}
+		resp.Body.Close()
+		fmt.Printf("Checked live status for user: %s\n", name)
 	}
 }
 
 func main() {
-	connStr := getEnv("DATABASE_URL", "postgres://rec-twitcasting-user:rec-twitcasting-pass@postgres-rec-twitcasting/rec-twitcasting?sslmode=disable")
-	db, err := sql.Open("postgres", connStr)
-	if err != nil {
-		log.Fatalf("Failed to connect to database: %v", err)
-	}
-	defer db.Close()
+	s1 := gocron.NewScheduler(time.Local)
 
-	c := cron.New()
-	interval := getEnv("FETCH_INTERVAL_SEC", "60")
-	c.AddFunc("@every "+interval+"s", func() { fetchAndCheckLive(db) })
-	c.Start()
+	s1.Every(2).Seconds().Do(task)
+	s1.StartAsync()
+
+	quit := make(chan os.Signal)
+	signal.Notify(quit, os.Interrupt)
+	<-quit
 }
