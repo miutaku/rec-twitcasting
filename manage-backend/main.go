@@ -39,11 +39,37 @@ func getEnv(key, fallback string) string {
 }
 
 func main() {
+	http.HandleFunc("/list-casting-users", listCastingUsersHandler)
 	http.HandleFunc("/add-casting-user", addCastingUserHandler)
 	http.HandleFunc("/del-casting-user", delCastingUserHandler)
 	http.HandleFunc("/check-recording-state", checkRecordingStateHandler)
 	http.HandleFunc("/update-recording-state", updateRecordingStateHandler)
 	log.Fatal(http.ListenAndServe(":8888", nil))
+}
+
+func listCastingUsersHandler(w http.ResponseWriter, r *http.Request) {
+	config := getDBConfig()
+	db, err := sql.Open("postgres", fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+		config.Host,
+		config.Port,
+		config.User,
+		config.Password,
+		config.DbName,
+	))
+	if err != nil {
+		http.Error(w, "Failed to connect to the database", http.StatusInternalServerError)
+		return
+	}
+	defer db.Close()
+
+	query := fmt.Sprintf("SELECT username,recording_state,created_date_time FROM %s", config.TableName)
+	_, err = db.Exec(query)
+	if err != nil {
+		http.Error(w, "Failed to list users", http.StatusInternalServerError)
+		return
+	}
+
+	fmt.Fprintf(w, "Users listed successfully")
 }
 
 func addCastingUserHandler(w http.ResponseWriter, r *http.Request) {
