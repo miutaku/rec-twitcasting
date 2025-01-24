@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"strconv"
 	"time"
 
 	"github.com/go-co-op/gocron"
@@ -79,9 +80,15 @@ func task() {
 }
 
 func main() {
+	interval, err := strconv.Atoi(os.Getenv("FETCH_INTERVAL_SEC"))
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Invalid FETCH_INTERVAL_SEC: %v\n", err)
+		os.Exit(1)
+	}
+
 	s1 := gocron.NewScheduler(time.Local)
 
-	s1.Every(2).Seconds().Do(task)
+	s1.Every(interval).Seconds().Do(task)
 	s1.StartAsync()
 
 	quit := make(chan os.Signal)
