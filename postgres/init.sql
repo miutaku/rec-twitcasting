@@ -1,4 +1,10 @@
-CREATE DATABASE rec_twitcasting;
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT FROM pg_database WHERE datname = 'rec_twitcasting') THEN
+        CREATE DATABASE rec_twitcasting;
+    END IF;
+END
+$$;
 
 -- connection
 \c rec_twitcasting;
