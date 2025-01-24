@@ -21,7 +21,7 @@ services:
       - DB_PASSWORD=rec-twitcasting-pass
       - DB_NAME=rec_twitcasting
       - DB_TABLE_NAME=speakers
-      - LOG_LEVEL=debug
+      #- LOG_LEVEL=debug
 
 # batch
   batch-rec-twitcasting:
