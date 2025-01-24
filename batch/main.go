@@ -3,7 +3,6 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"net/http"
 	"os"
 	"os/signal"
 	"time"
@@ -12,13 +11,34 @@ import (
 	_ "github.com/lib/pq"
 )
 
+type DBConfig struct {
+	Host      string
+	Port      string
+	User      string
+	Password  string
+	DbName    string
+	TableName string
+}
+
+func getDBConfig() DBConfig {
+	return DBConfig{
+		Host:      os.Getenv("DB_HOST"),
+		Port:      os.Getenv("DB_PORT"),
+		User:      os.Getenv("DB_USER"),
+		Password:  os.Getenv("DB_PASSWORD"),
+		DbName:    os.Getenv("DB_NAME"),
+		TableName: os.Getenv("DB_TABLE_NAME"),
+	}
+}
+
 func task() {
+	config := getDBConfig()
 	db, err := sql.Open("postgres", fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
-		os.Getenv("DB_HOST"),
-		os.Getenv("DB_PORT"),
-		os.Getenv("DB_USER"),
-		os.Getenv("DB_PASSWORD"),
-		os.Getenv("DB_NAME"),
+		config.Host,
+		config.Port,
+		config.User,
+		config.Password,
+		config.DbName,
 	))
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
@@ -26,7 +46,11 @@ func task() {
 	}
 	defer db.Close()
 
-	rows, err := db.Query("SELECT name FROM twitcasting.speakers WHERE recording=false")
+	rows, err := db.Query("SELECT name FROM %s.%s WHERE recording=false",
+		config.DbName,
+		config.TableName,
+	)
+
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Query failed: %v\n", err)
 		return
@@ -37,18 +61,10 @@ func task() {
 		var name string
 		err := rows.Scan(&name)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "Row scan failed: %v\n", err)
-			continue
+			fmt.Fprintf(os.Stderr, "Unable to scan row: %v\n", err)
+			return
 		}
-
-		fmt.Printf("Checking live status for user: %s\n", name)
-		resp, err := http.Get(fmt.Sprintf("http://rec-twitcasting:8080/check-live?username=%s", name))
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "HTTP request failed: %v\n", err)
-			continue
-		}
-		resp.Body.Close()
-		fmt.Printf("Checked live status for user: %s\n", name)
+		fmt.Printf("Speaker: %s\n", name)
 	}
 }
 
