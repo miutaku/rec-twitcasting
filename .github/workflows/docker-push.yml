@@ -5,10 +5,10 @@ on:
     branches:
       - main
     paths:
-      - 'Dockerfile'
-      - 'main.go'
-      - 'go.mod'
-      - 'go.sum'
+      - './api/Dockerfile'
+      - './api/main.go'
+      - './api/go.mod'
+      - './api/go.sum'
 
 jobs:
   push:
