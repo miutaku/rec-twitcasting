@@ -134,8 +134,10 @@ func main() {
 		streamURL := fmt.Sprintf("https://twitcasting.tv/%s/metastream.m3u8/?video=1", username)
 		fmt.Printf("Starting ffmpeg to record the stream...\n")
 		cmd := exec.Command("ffmpeg", "-y", "-i", streamURL, "-c", "copy", "-map", "p:0", outputFile)
-		cmd.Stdout = os.Stdout
-		cmd.Stderr = os.Stderr
+		if os.Getenv("LOG_LEVEL") == "debug" {
+			cmd.Stdout = os.Stdout
+			cmd.Stderr = os.Stderr
+		}
 
 		if err := cmd.Run(); err != nil {
 			http.Error(w, fmt.Sprintf("Failed to execute ffmpeg: %v", err), http.StatusInternalServerError)
