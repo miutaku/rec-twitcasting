@@ -15,7 +15,7 @@ services:
       - TZ=Asia/Tokyo
       - TWITCASTING_CLIENT_ID=YOUR_TWITCASTING_CLIENT_ID
       - TWITCASTING_CLIENT_SECRET=YOUR_TWITCASTING_CLIENT_SECRET
-    port:
+    ports:
       - 8081:8080
 
 # batch
