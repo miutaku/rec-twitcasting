@@ -18,6 +18,7 @@ services:
     build:
       context: ./batch
       dockerfile: Dockerfile
+    restart: unless-stopped
     container_name: batch-rec-twitcasting
     environment:
       - FETCH_INTERVAL_SEC=1
