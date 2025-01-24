@@ -36,7 +36,7 @@ jobs:
       - name: push container image
         uses: docker/build-push-action@v5
         with:
-          file: ./api/Dockerfile
+          file: ./batch/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           platforms: linux/amd64,linux/arm64
