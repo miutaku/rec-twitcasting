@@ -2,7 +2,7 @@
 FROM golang:1.23 AS builder
 WORKDIR /app
 COPY . .
-RUN go build -o rec-twitcasting ./main.go
+RUN go build -o rec-twitcasting ./api/main.go
 
 # Runtime stage
 FROM alpine:latest
