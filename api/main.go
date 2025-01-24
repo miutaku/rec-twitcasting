@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
@@ -10,8 +11,61 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
+	_ "github.com/lib/pq"
 	"github.com/nobuf/cas"
 )
+
+type DBConfig struct {
+	Host      string
+	Port      string
+	User      string
+	Password  string
+	DbName    string
+	TableName string
+}
+
+func getDBConfig() DBConfig {
+	return DBConfig{
+		Host:      getEnv("DB_HOST", "localhost"),
+		Port:      getEnv("DB_PORT", "5432"), // Default to 5432 if DB_PORT is not set
+		User:      getEnv("DB_USER", "user"),
+		Password:  getEnv("DB_PASSWORD", "password"),
+		DbName:    getEnv("DB_NAME", "dbname"),
+		TableName: getEnv("DB_TABLE_NAME", "tablename"),
+	}
+}
+
+func getEnv(key, fallback string) string {
+	value := os.Getenv(key)
+	if value == "" {
+		return fallback
+	}
+	return value
+}
+
+func updateRecordingState(username string, state bool) error {
+	config := getDBConfig()
+	db, err := sql.Open("postgres", fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+		config.Host,
+		config.Port,
+		config.User,
+		config.Password,
+		config.DbName,
+	))
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
+		os.Exit(1)
+	}
+	defer db.Close()
+
+	query := fmt.Sprintf("UPDATE %s SET recording_state = $1 WHERE username = $2", config.TableName)
+	_, err = db.Exec(query, state, username)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
 
 func main() {
 	clientID := os.Getenv("TWITCASTING_CLIENT_ID")
@@ -52,6 +106,12 @@ func main() {
 			return
 		}
 
+		// 配信中の場合、recording_stateをTRUEに更新
+		if err := updateRecordingState(username, true); err != nil {
+			http.Error(w, fmt.Sprintf("Failed to update recording state: %v", err), http.StatusInternalServerError)
+			return
+		}
+
 		// 配信中のタイトルを取得
 		title := liveInfo.Movie.Title
 		fmt.Printf("User is live streaming. Title: %s\n", title)
@@ -81,7 +141,11 @@ func main() {
 			http.Error(w, fmt.Sprintf("Failed to execute ffmpeg: %v", err), http.StatusInternalServerError)
 			return
 		}
-
+		// 録画終了後、recording_stateをFALSEに更新
+		if err := updateRecordingState(username, false); err != nil {
+			http.Error(w, fmt.Sprintf("Failed to update recording state: %v", err), http.StatusInternalServerError)
+			return
+		}
 		fmt.Printf("Recording finished. Saved as: %s\n", outputFile)
 		w.WriteHeader(http.StatusOK)
 		fmt.Fprintf(w, "Recording finished. Saved as: %s\n", outputFile)

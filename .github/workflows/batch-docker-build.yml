@@ -1,10 +1,12 @@
 ---
-name: rec-twitcasting api docker push
+name: rec-twitcasting batch docker push
 on:
   push:
     branches:
       - develop
-
+    paths:
+      - 'batch/**'
+    
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,7 +21,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.actor }}/api-rec-twitcasting
+          images: ghcr.io/${{ github.actor }}/batch-rec-twitcasting
           tags: |
             type=raw,value=latest
             type=sha,prefix=,suffix=,format=short
@@ -27,6 +29,6 @@ jobs:
       - name: Build container image
         uses: docker/build-push-action@v5
         with:
-          file: ./api/Dockerfile
+          file: ./batch/Dockerfile
           push: false
           platforms: linux/amd64,linux/arm64

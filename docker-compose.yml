@@ -1,16 +1,70 @@
 ---
 services:
+# rec-api
   api-rec-twitcasting:
-    image: ghcr.io/miutaku/api-rec-twitcasting:latest
-    container_name: rec-twitcasting
+    #image: ghcr.io/miutaku/api-rec-twitcasting:latest
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    container_name: api-rec-twitcasting
     restart: unless-stopped
-    ports:
-      - 8080:8080
     volumes:
-      - ./config:/config
-      - ./recorded:./recorded
+      - ./recorded:/root/recorded
 #      - /your/path/to/dir:./recorded
     environment:
       - TZ=Asia/Tokyo
       - TWITCASTING_CLIENT_ID=YOUR_TWITCASTING_CLIENT_ID
       - TWITCASTING_CLIENT_SECRET=YOUR_TWITCASTING_CLIENT_SECRET
+      - DB_HOST=postgres-rec-twitcasting
+      - DB_PORT=5432
+      - DB_USER=rec-twitcasting-user
+      - DB_PASSWORD=rec-twitcasting-pass
+      - DB_NAME=rec_twitcasting
+      - DB_TABLE_NAME=speakers
+
+# batch
+  batch-rec-twitcasting:
+    #image: ghcr.io/miutaku/batch-rec-twitcasting:latest
+    build:
+      context: .
+      dockerfile: batch/Dockerfile
+    restart: unless-stopped
+    container_name: batch-rec-twitcasting
+    environment:
+      - FETCH_INTERVAL_SEC=1
+      - DB_HOST=postgres-rec-twitcasting
+      - DB_PORT=5432
+      - DB_USER=rec-twitcasting-user
+      - DB_PASSWORD=rec-twitcasting-pass
+      - DB_NAME=rec_twitcasting
+      - DB_TABLE_NAME=speakers
+
+# db
+  postgres-rec-twitcasting:
+    image: postgres:17.2
+    container_name: postgres-rec-twitcasting
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=rec-twitcasting-user
+      - POSTGRES_PASSWORD=rec-twitcasting-pass
+      - POSTGRES_DB=rec_twitcasting
+    volumes:
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./postgres/data:/var/lib/postgresql/data
+
+## manage
+#  manage-frontend-rec-twitcasting:
+#    image: ghcr.io/miutaku/manage-frontend-rec-twitcasting:latest
+#    container_name: frontend-rec-twitcasting
+#    restart: unless-stopped
+#    ports:
+#      - 8888:8888
+#
+#  manage-backend-rec-twitcasting:
+#    image: ghcr.io/miutaku/manage-backend-rec-twitcasting:latest
+#    container_name: backend-rec-twitcasting
+#    restart: unless-stopped
+#    environment:
+#      - TZ=Asia/Tokyo
+#      #- DATABASE_URL=YOUR_DATABASE_URL
+#
