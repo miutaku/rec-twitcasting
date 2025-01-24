@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"net/http"
 	"os"
 	"os/signal"
 	"time"
@@ -62,7 +63,19 @@ func task() {
 			fmt.Fprintf(os.Stderr, "Unable to scan row: %v\n", err)
 			return
 		}
-		fmt.Printf("Speaker: %s\n", name)
+		fmt.Printf("CheckingSpeaker: %s\n", name)
+		resp, err := http.Get(fmt.Sprintf("http://localhost:8080/check-live?username=%s", name))
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "HTTP request failed: %v\n", err)
+			return
+		}
+		defer resp.Body.Close()
+
+		if resp.StatusCode == http.StatusOK {
+			fmt.Printf("User %s is live\n", name)
+		} else {
+			fmt.Printf("User %s is not live\n", name)
+		}
 	}
 }
 
