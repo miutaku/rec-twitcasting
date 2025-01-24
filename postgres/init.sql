@@ -7,8 +7,7 @@ CREATE DATABASE rec_twitcasting;
 CREATE SEQUENCE speakers_id_seq START 1;
 
 -- create table
-DROP TABLE IF EXISTS speakers;
-CREATE TABLE speakers (
+CREATE TABLE IF NOT EXISTS speakers (
   id INTEGER PRIMARY KEY DEFAULT nextval('speakers_id_seq'),
   username VARCHAR(255) NOT NULL,
   recording_state BOOLEAN NOT NULL DEFAULT FALSE,
