@@ -27,6 +27,7 @@ services:
       - DB_USER=rec-twitcasting-user
       - DB_PASSWORD=rec-twitcasting-pass
       - DB_NAME=rec_twitcasting
+      - DB_TABLE_NAME=speakers
 
 # db
   postgres-rec-twitcasting:
