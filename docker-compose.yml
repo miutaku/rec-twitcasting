@@ -6,7 +6,7 @@ services:
     container_name: api-rec-twitcasting
     restart: unless-stopped
     volumes:
-      - ./recorded:./recorded
+      - ./recorded:/root/recorded
 #      - /your/path/to/dir:./recorded
     environment:
       - TZ=Asia/Tokyo
