@@ -16,8 +16,8 @@ services:
 # batch
   batch-rec-twitcasting:
     build:
-      context: ./batch
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: batch/Dockerfile
     restart: unless-stopped
     container_name: batch-rec-twitcasting
     environment:
