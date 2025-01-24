@@ -53,7 +53,7 @@ services:
       - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./postgres/data:/var/lib/postgresql/data
 
-## manage
+# manage
 #  manage-frontend-rec-twitcasting:
 #    image: ghcr.io/miutaku/manage-frontend-rec-twitcasting:latest
 #    container_name: frontend-rec-twitcasting
@@ -61,11 +61,15 @@ services:
 #    ports:
 #      - 8888:8888
 #
-#  manage-backend-rec-twitcasting:
-#    image: ghcr.io/miutaku/manage-backend-rec-twitcasting:latest
-#    container_name: backend-rec-twitcasting
-#    restart: unless-stopped
-#    environment:
-#      - TZ=Asia/Tokyo
-#      #- DATABASE_URL=YOUR_DATABASE_URL
-#
+  manage-backend-rec-twitcasting:
+    image: ghcr.io/miutaku/manage-backend-rec-twitcasting:latest
+    container_name: backend-rec-twitcasting
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Tokyo
+      - DB_HOST=postgres-rec-twitcasting
+      - DB_PORT=5432
+      - DB_USER=rec-twitcasting-user
+      - DB_PASSWORD=rec-twitcasting-pass
+      - DB_NAME=rec_twitcasting
+      - DB_TABLE_NAME=speakers
