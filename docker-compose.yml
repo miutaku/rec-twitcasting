@@ -22,7 +22,11 @@ services:
     container_name: batch-rec-twitcasting
     environment:
       - FETCH_INTERVAL_SEC=1
-      #- DATABASE_URL=YOUR_DATABASE_URL
+      - DB_HOST=postgres-rec-twitcasting
+      - DB_PORT=5432
+      - DB_USER=rec-twitcasting-user
+      - DB_PASSWORD=rec-twitcasting-pass
+      - DB_NAME=rec_twitcasting
 
 # db
   postgres-rec-twitcasting:
