@@ -43,7 +43,7 @@ func main() {
 	http.HandleFunc("/del-casting-user", delCastingUserHandler)
 	http.HandleFunc("/check-recording-state", checkRecordingStateHandler)
 	http.HandleFunc("/update-recording-state", updateRecordingStateHandler)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8888", nil))
 }
 
 func addCastingUserHandler(w http.ResponseWriter, r *http.Request) {
