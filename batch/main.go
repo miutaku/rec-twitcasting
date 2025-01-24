@@ -46,10 +46,8 @@ func task() {
 	}
 	defer db.Close()
 
-	rows, err := db.Query("SELECT name FROM %s.%s WHERE recording=false",
-		config.DbName,
-		config.TableName,
-	)
+	checkQuery := fmt.Sprintf("SELECT name FROM %s.%s WHERE recording=false", config.DbName, config.TableName)
+	rows, err := db.Query(checkQuery)
 
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Query failed: %v\n", err)
