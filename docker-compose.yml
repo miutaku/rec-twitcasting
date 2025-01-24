@@ -54,19 +54,22 @@ services:
       - ./postgres/data:/var/lib/postgresql/data
 
 # manage
-#  manage-frontend-rec-twitcasting:
-#    image: ghcr.io/miutaku/manage-frontend-rec-twitcasting:latest
-#    container_name: frontend-rec-twitcasting
-#    restart: unless-stopped
-#    ports:
-#      - 8888:8888
-#
+  manage-frontend-rec-twitcasting:
+    #image: ghcr.io/miutaku/manage-frontend-rec-twitcasting:latest
+    build:
+      context: .
+      dockerfile: manage-frontend/Dockerfile
+    container_name: manage-frontend-rec-twitcasting
+    restart: unless-stopped
+    ports:
+      - 8888:8888
+
   manage-backend-rec-twitcasting:
     build:
       context: .
       dockerfile: manage-backend/Dockerfile
     #image: ghcr.io/miutaku/manage-backend-rec-twitcasting:latest
-    container_name: backend-rec-twitcasting
+    container_name: manage-backend-rec-twitcasting
     restart: unless-stopped
     environment:
       - TZ=Asia/Tokyo
