@@ -29,6 +29,8 @@ services:
     #build:
     #  context: .
     #  dockerfile: batch/Dockerfile
+    depends_on:
+      - postgres-rec-twitcasting
     restart: unless-stopped
     container_name: batch-rec-twitcasting
     environment:
