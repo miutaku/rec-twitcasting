@@ -28,7 +28,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.actor }}/rec-twitcasting
+          images: ghcr.io/${{ github.actor }}/api-rec-twitcasting
           tags: |
             type=raw,value=latest
             type=sha,prefix=,suffix=,format=short
