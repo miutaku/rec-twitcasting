@@ -1,8 +1,8 @@
 ---
 services:
-  twitcasting-rec:
-    image: ghcr.io/miutaku/rec-twitcasting:latest
-    container_name: twitcasting-rec
+  api-rec-twitcasting:
+    image: ghcr.io/miutaku/api-rec-twitcasting:latest
+    container_name: rec-twitcasting
     restart: unless-stopped
     ports:
       - 8080:8080
