@@ -1,5 +1,6 @@
 # Build stage
 FROM golang:1.23 AS builder
+ENV CGO_ENABLED=0
 WORKDIR /app
 COPY batch .
 RUN go build -o batch-rec-twitcasting ./main.go
