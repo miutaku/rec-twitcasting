@@ -1,7 +1,7 @@
 CREATE DATABASE rec_twitcasting;
 
 -- connection
-\c rec-twitcasting;
+\c rec_twitcasting;
 
 -- create table
 DROP TABLE IF EXISTS speakers;
@@ -16,4 +16,4 @@ CREATE TABLE speakers (
 CREATE SEQUENCE speakers_id_seq START 1;
 
 -- insert data (sample)
--- INSERT INTO speakers (id, username) VALUES(nextval('speakers_id_seq'), 'twitcasting_username');
+-- INSERT INTO rec_twitcasting.speakers (id, username) VALUES(nextval('speakers_id_seq'), 'twitcasting_username');
