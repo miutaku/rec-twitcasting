@@ -16,3 +16,9 @@ CREATE TABLE IF NOT EXISTS speakers (
 
 -- insert data (sample)
 -- INSERT INTO speakers (username) VALUES('twitcasting_username');
+
+-- delete data (sample)
+-- DELETE FROM speakers WHERE username = 'twitcasting_username';
+
+-- update data (sample)
+-- UPDATE speakers SET recording_state = TRUE WHERE username = 'twitcasting_username';
