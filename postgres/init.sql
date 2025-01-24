@@ -15,4 +15,4 @@ CREATE TABLE IF NOT EXISTS speakers (
 );
 
 -- insert data (sample)
--- INSERT INTO rec_twitcasting.speakers (id, username) VALUES(nextval('speakers_id_seq'), 'twitcasting_username');
+-- INSERT INTO speakers (username) VALUES('twitcasting_username');
