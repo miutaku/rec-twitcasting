@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -62,14 +63,43 @@ func listCastingUsersHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	defer db.Close()
 
-	query := fmt.Sprintf("SELECT username,recording_state,created_date_time FROM %s", config.TableName)
-	_, err = db.Exec(query)
+	query := fmt.Sprintf("SELECT username, recording_state, created_date_time FROM %s", config.TableName)
+	rows, err := db.Query(query)
 	if err != nil {
-		http.Error(w, "Failed to list users", http.StatusInternalServerError)
+		http.Error(w, "Failed to query users", http.StatusInternalServerError)
+		return
+	}
+	defer rows.Close()
+
+	var users []map[string]interface{}
+	for rows.Next() {
+		var username string
+		var recordingState bool
+		var createdDateTime string
+		err := rows.Scan(&username, &recordingState, &createdDateTime)
+		if err != nil {
+			http.Error(w, "Failed to scan user", http.StatusInternalServerError)
+			return
+		}
+		user := map[string]interface{}{
+			"username":          username,
+			"recording_state":   recordingState,
+			"created_date_time": createdDateTime,
+		}
+		users = append(users, user)
+	}
+
+	if err = rows.Err(); err != nil {
+		http.Error(w, "Failed to iterate over users", http.StatusInternalServerError)
 		return
 	}
 
-	fmt.Fprintf(w, "Users listed successfully")
+	w.Header().Set("Content-Type", "application/json")
+	err = json.NewEncoder(w).Encode(users)
+	if err != nil {
+		http.Error(w, "Failed to encode users to JSON", http.StatusInternalServerError)
+		return
+	}
 }
 
 func addCastingUserHandler(w http.ResponseWriter, r *http.Request) {
