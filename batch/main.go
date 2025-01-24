@@ -63,7 +63,6 @@ func task() {
 			fmt.Fprintf(os.Stderr, "Unable to scan row: %v\n", err)
 			return
 		}
-		fmt.Printf("CheckingSpeaker: %s\n", name)
 		resp, err := http.Get(fmt.Sprintf("http://localhost:8080/check-live?username=%s", name))
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "HTTP request failed: %v\n", err)
