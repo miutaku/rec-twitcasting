@@ -31,7 +31,7 @@ func checkLive(name string) {
 }
 
 func fetchAndCheckLive(db *sql.DB) {
-	rows, err := db.Query("SELECT name FROM twitcasting.speakers WHERE recording=false")
+	rows, err := db.Query("SELECT username FROM rec_twitcasting.speakers WHERE recording_state=false")
 	if err != nil {
 		log.Printf("Failed to execute query: %v", err)
 		return
@@ -53,7 +53,7 @@ func fetchAndCheckLive(db *sql.DB) {
 }
 
 func main() {
-	connStr := getEnv("DATABASE_URL", "postgres://rec-twitcasting-user:rec-twitcasting-pass@postgres-rec-twitcasting/dbname?sslmode=disable")
+	connStr := getEnv("DATABASE_URL", "postgres://rec-twitcasting-user:rec-twitcasting-pass@postgres-rec-twitcasting/rec-twitcasting?sslmode=disable")
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
 		log.Fatalf("Failed to connect to database: %v", err)

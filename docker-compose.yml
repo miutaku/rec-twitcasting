@@ -32,6 +32,9 @@ services:
       - POSTGRES_USER=rec-twitcasting-user
       - POSTGRES_PASSWORD=rec-twitcasting-pass
       - POSTGRES_DB=rec_twitcasting
+    volumes:
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/
+      - ./postgres/data:/var/lib/postgresql/data
 
 # manage
   manage-frontend-rec-twitcasting:

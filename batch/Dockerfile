@@ -1,7 +1,7 @@
 # Build stage
 FROM golang:1.23 AS builder
 WORKDIR /app
-COPY batch .
+COPY . .
 RUN go build -o batch-rec-twitcasting ./main.go
 
 # Runtime stage
