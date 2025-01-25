@@ -94,7 +94,7 @@ func main() {
 	s1.Every(interval).Seconds().Do(task)
 	s1.StartAsync()
 
-	quit := make(chan os.Signal)
+	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, os.Interrupt)
 	<-quit
 }
