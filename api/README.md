@@ -34,14 +34,7 @@ sudo dnf install ffmpeg
 ```bash
 export TWITCASTING_CLIENT_ID=<your_client_id>
 export TWITCASTING_CLIENT_SECRET=<your_client_secret>
-export DB_HOST=localhost
-export DB_PORT=5432
-export DB_USER=user
-export DB_PASSWORD=password
-export DB_NAME=dbname
-export DB_TABLE_NAME=tablename
-export OUTPUT_DIR=./recorded
-export LOG_LEVEL=debug
+export MANAGE_BACKEND_HOST=<manage-backend>
 ```
 
 4. Run the server:
@@ -56,14 +49,9 @@ go run main.go
 |-------------------------|-----------------------------------------------------------------------------|---------------------|
 | `TWITCASTING_CLIENT_ID`| Your TwitCasting Client ID.                                                 | None (required)     |
 | `TWITCASTING_CLIENT_SECRET`| Your TwitCasting Client Secret.                                         | None (required)     |
-| `DB_HOST`               | Database host.                                                            | `localhost`         |
-| `DB_PORT`               | Database port.                                                            | `5432`              |
-| `DB_USER`               | Database user.                                                            | `user`              |
-| `DB_PASSWORD`           | Database password.                                                        | `password`          |
-| `DB_NAME`               | Database name.                                                            | `dbname`            |
-| `DB_TABLE_NAME`         | Database table name.                                                      | `tablename`         |
 | `OUTPUT_DIR`            | Directory to save recorded videos.                                        | `./recorded`        |
 | `LOG_LEVEL`             | Set to `debug` to see detailed logs.                                      | None                |
+| `MANAGE_BACKEND_HOST`   | Host for managing backend recording state.                                 | `manage-backend`(required)    |
 
 ## Endpoints
 
@@ -74,7 +62,7 @@ Checks if a TwitCasting user is live streaming and records their stream if live.
 #### Request
 
 - **URL Query Parameters**:
-  - `username` (string): The TwitCasting username to check and record.
+    - `username` (string): The TwitCasting username to check and record.
 
 #### Example
 
@@ -85,24 +73,24 @@ curl "http://localhost:8080/check-live?username=<twitcasting_username>"
 #### Responses
 
 - **200 OK**:
-  - User is not live streaming:
-    ```
-    User is not live streaming.
-    ```
-  - Recording finished:
-    ```
-    Recording finished. Saved as: <output_file_path>
-    ```
+    - User is not live streaming:
+        ```
+        User is not live streaming.
+        ```
+    - Recording finished:
+        ```
+        Recording finished. Saved as: <output_file_path>
+        ```
 - **400 Bad Request**:
-  - Missing `username` parameter:
-    ```
-    username parameter is required
-    ```
+    - Missing `username` parameter:
+        ```
+        username parameter is required
+        ```
 - **500 Internal Server Error**:
-  - Errors while checking stream or updating recording state:
-    ```
-    Failed to get current live information: <error_details>
-    ```
+    - Errors while checking stream or updating recording state:
+        ```
+        Failed to get current live information: <error_details>
+        ```
 
 ## Recording Output
 
@@ -110,9 +98,9 @@ Recorded streams are saved in the directory specified by the `OUTPUT_DIR` enviro
 
 ```
 recorded/
-  └── <username>/
-      └── <YYYY-MM-DD>/
-          └── <HH-MM>_<title>.mp4
+    └── <username>/
+            └── <YYYY-MM-DD>/
+                    └── <HH-MM>_<title>.mp4
 ```
 
 - `<username>`: The TwitCasting username.
