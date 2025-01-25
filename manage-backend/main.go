@@ -9,6 +9,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/lib/pq"
 	_ "github.com/lib/pq"
 )
 
@@ -86,7 +87,7 @@ func listCastingUsersHandler(w http.ResponseWriter, r *http.Request) {
 		user := map[string]interface{}{
 			"recording_state":  recordingState,
 			"action_date_time": createdDateTime,
-			"action":           "listedCastingUser",
+			"action":           "listCastingUser",
 			"target_username":  username,
 		}
 		users = append(users, user)
@@ -126,13 +127,24 @@ func addCastingUserHandler(w http.ResponseWriter, r *http.Request) {
 	query := fmt.Sprintf("INSERT INTO %s (username) VALUES($1)", config.TableName)
 	_, err = db.Exec(query, username)
 	if err != nil {
+		if pqErr, ok := err.(*pq.Error); ok && pqErr.Code == "23505" { // 23505 is the unique_violation error code
+			response := map[string]interface{}{
+				"error":            "User already exists",
+				"action_date_time": time.Now().UTC().Format(time.RFC3339),
+				"action":           "addCastingUser",
+				"target_username":  username,
+			}
+			w.Header().Set("Content-Type", "application/json")
+			json.NewEncoder(w).Encode(response)
+			return
+		}
 		http.Error(w, "Failed to insert user", http.StatusInternalServerError)
 		return
 	}
 
 	response := map[string]interface{}{
 		"action_date_time": time.Now().UTC().Format(time.RFC3339),
-		"action":           "addedCastingUser",
+		"action":           "addCastingUser",
 		"target_username":  username,
 	}
 	w.Header().Set("Content-Type", "application/json")
@@ -170,7 +182,7 @@ func delCastingUserHandler(w http.ResponseWriter, r *http.Request) {
 
 	response := map[string]interface{}{
 		"action_date_time": time.Now().UTC().Format(time.RFC3339),
-		"action":           "deletedCastingUser",
+		"action":           "deleteCastingUser",
 		"target_username":  username,
 	}
 	w.Header().Set("Content-Type", "application/json")
@@ -214,7 +226,7 @@ func checkRecordingStateHandler(w http.ResponseWriter, r *http.Request) {
 	response := map[string]interface{}{
 		"recording_state":  recordingState,
 		"action_date_time": time.Now().UTC().Format(time.RFC3339),
-		"action":           "checkedRecordingState",
+		"action":           "checkRecordingState",
 		"target_username":  username,
 	}
 	w.Header().Set("Content-Type", "application/json")
@@ -258,7 +270,7 @@ func updateRecordingStateHandler(w http.ResponseWriter, r *http.Request) {
 
 	response := map[string]interface{}{
 		"action_date_time": time.Now().UTC().Format(time.RFC3339),
-		"action":           "updatedRecordingState",
+		"action":           "updateRecordingState",
 		"target_username":  username,
 	}
 	w.Header().Set("Content-Type", "application/json")
