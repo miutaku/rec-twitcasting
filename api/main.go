@@ -22,7 +22,7 @@ func getEnv(key, fallback string) string {
 	return value
 }
 func updateRecordingState(username string, state bool) error {
-	manageBackendHost := getEnv("MANAGE_BACKEND_HOST", "manage-backend-rec-twitcasting:8080")
+	manageBackendHost := getEnv("MANAGE_BACKEND_HOST", "manage-backend-rec-twitcasting:8888")
 	updateURL := fmt.Sprintf("http://%s/update-recording-state?username=%s&recording_state=%t", manageBackendHost, username, state)
 	resp, err := http.Get(updateURL)
 	if err != nil {
