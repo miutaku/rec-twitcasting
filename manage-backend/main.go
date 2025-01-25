@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	_ "github.com/lib/pq"
 )
@@ -83,9 +84,10 @@ func listCastingUsersHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		user := map[string]interface{}{
-			"username":          username,
-			"recording_state":   recordingState,
-			"created_date_time": createdDateTime,
+			"recording_state":  recordingState,
+			"action_date_time": createdDateTime,
+			"action":           "listedCastingUser",
+			"target_username":  username,
 		}
 		users = append(users, user)
 	}
@@ -128,7 +130,13 @@ func addCastingUserHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Fprintf(w, "User %s added successfully", username)
+	response := map[string]interface{}{
+		"action_date_time": time.Now().UTC().Format(time.RFC3339),
+		"action":           "addedCastingUser",
+		"target_username":  username,
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
 }
 
 // curl "localhost:8888/del-casting-user?username=<username>"
@@ -160,7 +168,13 @@ func delCastingUserHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Fprintf(w, "User %s deleted successfully", username)
+	response := map[string]interface{}{
+		"action_date_time": time.Now().UTC().Format(time.RFC3339),
+		"action":           "deletedCastingUser",
+		"target_username":  username,
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
 }
 
 // curl "localhost:8888/check-recording-state?username=<username>"
@@ -197,7 +211,14 @@ func checkRecordingStateHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Fprintf(w, "Recording state for user %s is %s", username, recordingState)
+	response := map[string]interface{}{
+		"recording_state":  recordingState,
+		"action_date_time": time.Now().UTC().Format(time.RFC3339),
+		"action":           "checkedRecordingState",
+		"target_username":  username,
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
 }
 
 // curl "localhost:8888/update-recording-state?username=<username>&recording_state=<false/true>"
@@ -235,5 +256,11 @@ func updateRecordingStateHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Fprintf(w, "Recording state for user %s updated successfully", username)
+	response := map[string]interface{}{
+		"action_date_time": time.Now().UTC().Format(time.RFC3339),
+		"action":           "updatedRecordingState",
+		"target_username":  username,
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
 }
