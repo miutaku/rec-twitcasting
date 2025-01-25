@@ -15,12 +15,7 @@ services:
       - TZ=Asia/Tokyo
       - TWITCASTING_CLIENT_ID=YOUR_TWITCASTING_CLIENT_ID
       - TWITCASTING_CLIENT_SECRET=YOUR_TWITCASTING_CLIENT_SECRET
-      - DB_HOST=postgres-rec-twitcasting
-      - DB_PORT=5432
-      - DB_USER=rec-twitcasting-user
-      - DB_PASSWORD=rec-twitcasting-pass
-      - DB_NAME=rec_twitcasting
-      - DB_TABLE_NAME=speakers
+      - MANAGE_BACKEND_HOST="manage-backend-rec-twitcasting:8080"
       #- LOG_LEVEL=debug
 
 # batch
