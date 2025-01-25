@@ -64,7 +64,8 @@ func task() {
 			fmt.Fprintf(os.Stderr, "Unable to scan row: %v\n", err)
 			return
 		}
-		resp, err := http.Get(fmt.Sprintf("http://api-rec-twitcasting:8080/check-live?username=%s", name))
+		apiURL := os.Getenv("API_REC_TWITCASTING_URL")
+		resp, err := http.Get(fmt.Sprintf("%s/check-live?username=%s", apiURL, name))
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "HTTP request failed: %v\n", err)
 			return

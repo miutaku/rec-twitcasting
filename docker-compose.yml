@@ -35,6 +35,7 @@ services:
     container_name: batch-rec-twitcasting
     environment:
       - FETCH_INTERVAL_SEC=1
+      - API_REC_TWITCASTING_URL=http://api-rec-twitcasting:8080
       - DB_HOST=postgres-rec-twitcasting
       - DB_PORT=5432
       - DB_USER=rec-twitcasting-user
