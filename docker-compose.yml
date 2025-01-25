@@ -63,5 +63,7 @@ services:
       dockerfile: manage-backend/Dockerfile
     container_name: manage-backend-rec-twitcasting
     restart: unless-stopped
+    ports:
+      - 8888:8888
     env_file:
       - .env
