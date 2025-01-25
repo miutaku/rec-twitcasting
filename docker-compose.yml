@@ -11,6 +11,8 @@ services:
     volumes:
       - ./recorded:/root/recorded
 #      - /your/path/to/dir:./recorded
+    env_file:
+      - .env
 
 # batch
   batch-rec-twitcasting:
@@ -23,6 +25,8 @@ services:
         condition: service_healthy
     restart: unless-stopped
     container_name: batch-rec-twitcasting
+    env_file:
+      - .env
 
 # db
   postgres-rec-twitcasting:
@@ -38,6 +42,8 @@ services:
       timeout: 30s
       retries: 5
       start_period: 30s
+    env_file:
+      - .env
 
 # manage
 #  manage-frontend-rec-twitcasting:
@@ -57,3 +63,5 @@ services:
       dockerfile: manage-backend/Dockerfile
     container_name: manage-backend-rec-twitcasting
     restart: unless-stopped
+    env_file:
+      - .env
