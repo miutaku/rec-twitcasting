@@ -202,24 +202,12 @@ func updateRecordingStateHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	state := r.URL.Query().Get("state")
-	if state == "" {
-		http.Error(w, "state is required", http.StatusBadRequest)
+	recordingState := r.URL.Query().Get("recording_state")
+	if recordingState == "" {
+		http.Error(w, "recording_state is required", http.StatusBadRequest)
 		return
 	}
 
-	recordingState := state == "true"
-
-	err := updateRecordingState(username, recordingState)
-	if err != nil {
-		http.Error(w, "Failed to update recording state", http.StatusInternalServerError)
-		return
-	}
-
-	fmt.Fprintf(w, "Recording state for user %s updated successfully", username)
-}
-
-func updateRecordingState(username string, state bool) error {
 	config := getDBConfig()
 	db, err := sql.Open("postgres", fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		config.Host,
@@ -229,16 +217,17 @@ func updateRecordingState(username string, state bool) error {
 		config.DbName,
 	))
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
-		return err
+		http.Error(w, "Failed to connect to the database", http.StatusInternalServerError)
+		return
 	}
 	defer db.Close()
 
 	query := fmt.Sprintf("UPDATE %s SET recording_state = $1 WHERE username = $2", config.TableName)
-	_, err = db.Exec(query, state, username)
+	_, err = db.Exec(query, recordingState, username)
 	if err != nil {
-		return err
+		http.Error(w, "Failed to update recording state", http.StatusInternalServerError)
+		return
 	}
 
-	return nil
+	fmt.Fprintf(w, "Recording state for user %s updated successfully", username)
 }
