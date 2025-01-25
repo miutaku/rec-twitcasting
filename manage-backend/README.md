@@ -6,15 +6,15 @@ This document provides an overview of the API endpoints implemented in the provi
 
 ## Table of Contents
 
-1. [List Casting Users](#1-list-casting-users)
-2. [Add Casting User](#2-add-casting-user)
-3. [Delete Casting User](#3-delete-casting-user)
-4. [Check Recording State](#4-check-recording-state)
-5. [Update Recording State](#5-update-recording-state)
+1. [List Casting Users](#list-casting-users)
+2. [Add Casting User](#add-casting-user)
+3. [Delete Casting User](#delete-casting-user)
+4. [Check Recording State](#check-recording-state)
+5. [Update Recording State](#update-recording-state)
 
 ---
 
-### 1. List Casting Users
+### List Casting Users
 
 **Endpoint:** `/list-casting-users`
 
@@ -47,7 +47,7 @@ curl "http://localhost:8888/list-casting-users"
 
 ---
 
-### 2. Add Casting User
+### Add Casting User
 
 **Endpoint:** `/add-casting-user`
 
@@ -84,7 +84,7 @@ curl "http://localhost:8888/add-casting-user?username=newuser"
 
 ---
 
-### 3. Delete Casting User
+### Delete Casting User
 
 **Endpoint:** `/del-casting-user`
 
@@ -111,7 +111,7 @@ curl "http://localhost:8888/del-casting-user?username=user1"
 
 ---
 
-### 4. Check Recording State
+### Check Recording State
 
 **Endpoint:** `/check-recording-state`
 
@@ -144,7 +144,7 @@ User not found
 
 ---
 
-### 5. Update Recording State
+### Update Recording State
 
 **Endpoint:** `/update-recording-state`
 
@@ -168,3 +168,4 @@ curl "http://localhost:8888/update-recording-state?username=user1&recording_stat
     "action": "updateRecordingState",
     "target_username": "user1"
 }
+```
