@@ -11,6 +11,8 @@ services:
     volumes:
       - ./recorded:/root/recorded
 #      - /your/path/to/dir:./recorded
+    ports:
+      - 18080:8080
     env_file:
       - .env
 
@@ -64,6 +66,6 @@ services:
     container_name: manage-backend-rec-twitcasting
     restart: unless-stopped
     ports:
-      - 8888:8888
+      - 18888:8888
     env_file:
       - .env
