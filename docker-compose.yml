@@ -25,7 +25,8 @@ services:
     #  context: .
     #  dockerfile: batch/Dockerfile
     depends_on:
-      - postgres-rec-twitcasting
+      postgres-rec-twitcasting:
+        condition: service_healthy
     restart: unless-stopped
     container_name: batch-rec-twitcasting
     environment:
@@ -51,6 +52,12 @@ services:
     volumes:
       - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./postgres/data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["psql -U $POSTGRES_USER -d $POSTGRES_DB -c 'SELECT 1'"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
 
 # manage
 #  manage-frontend-rec-twitcasting:
