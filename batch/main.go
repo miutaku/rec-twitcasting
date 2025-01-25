@@ -65,6 +65,9 @@ func task() {
 			return
 		}
 		apiURL := os.Getenv("API_REC_TWITCASTING_URL")
+		if apiURL == "" {
+			apiURL = "http://api-rec-twitcasting:8080"
+		}
 		resp, err := http.Get(fmt.Sprintf("%s/check-live?username=%s", apiURL, name))
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "HTTP request failed: %v\n", err)
@@ -94,7 +97,7 @@ func main() {
 	s1.Every(interval).Seconds().Do(task)
 	s1.StartAsync()
 
-	quit := make(chan os.Signal)
+	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, os.Interrupt)
 	<-quit
 }

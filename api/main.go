@@ -1,7 +1,6 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
@@ -15,26 +14,6 @@ import (
 	"github.com/nobuf/cas"
 )
 
-type DBConfig struct {
-	Host      string
-	Port      string
-	User      string
-	Password  string
-	DbName    string
-	TableName string
-}
-
-func getDBConfig() DBConfig {
-	return DBConfig{
-		Host:      getEnv("DB_HOST", "localhost"),
-		Port:      getEnv("DB_PORT", "5432"), // Default to 5432 if DB_PORT is not set
-		User:      getEnv("DB_USER", "user"),
-		Password:  getEnv("DB_PASSWORD", "password"),
-		DbName:    getEnv("DB_NAME", "dbname"),
-		TableName: getEnv("DB_TABLE_NAME", "tablename"),
-	}
-}
-
 func getEnv(key, fallback string) string {
 	value := os.Getenv(key)
 	if value == "" {
@@ -42,28 +21,17 @@ func getEnv(key, fallback string) string {
 	}
 	return value
 }
-
 func updateRecordingState(username string, state bool) error {
-	config := getDBConfig()
-	db, err := sql.Open("postgres", fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
-		config.Host,
-		config.Port,
-		config.User,
-		config.Password,
-		config.DbName,
-	))
+	manageBackendHost := getEnv("MANAGE_BACKEND_HOST", "manage-backend-rec-twitcasting:8888")
+	updateURL := fmt.Sprintf("http://%s/update-recording-state?username=%s&recording_state=%t", manageBackendHost, username, state)
+	resp, err := http.Get(updateURL)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
-		os.Exit(1)
+		return fmt.Errorf("failed to update recording state: %v", err)
 	}
-	defer db.Close()
-
-	query := fmt.Sprintf("UPDATE %s SET recording_state = $1 WHERE username = $2", config.TableName)
-	_, err = db.Exec(query, state, username)
-	if err != nil {
-		return err
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("failed to update recording state, status code: %d", resp.StatusCode)
 	}
-
 	return nil
 }
 
@@ -111,7 +79,6 @@ func main() {
 			http.Error(w, fmt.Sprintf("Failed to update recording state: %v", err), http.StatusInternalServerError)
 			return
 		}
-
 		// 配信中のタイトルを取得
 		title := liveInfo.Movie.Title
 		fmt.Printf("User is live streaming. Title: %s\n", title)
