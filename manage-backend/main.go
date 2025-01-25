@@ -78,7 +78,7 @@ func listCastingUsersHandler(w http.ResponseWriter, r *http.Request) {
 		var createdDateTime string
 		err := rows.Scan(&username, &recordingState, &createdDateTime)
 		if err != nil {
-			http.Error(w, "Failed to scan user", http.StatusInternalServerError)
+			http.Error(w, "Failed to scan row", http.StatusInternalServerError)
 			return
 		}
 		user := map[string]interface{}{
@@ -90,18 +90,13 @@ func listCastingUsersHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err = rows.Err(); err != nil {
-		http.Error(w, "Failed to iterate over users", http.StatusInternalServerError)
+		http.Error(w, "Error iterating rows", http.StatusInternalServerError)
 		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	err = json.NewEncoder(w).Encode(users)
-	if err != nil {
-		http.Error(w, "Failed to encode users to JSON", http.StatusInternalServerError)
-		return
-	}
+	json.NewEncoder(w).Encode(users)
 }
-
 func addCastingUserHandler(w http.ResponseWriter, r *http.Request) {
 	username := r.URL.Query().Get("username")
 	if username == "" {
