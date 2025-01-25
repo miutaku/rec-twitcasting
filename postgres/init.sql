@@ -14,10 +14,10 @@ CREATE SEQUENCE speakers_id_seq START 1;
 
 -- create table
 CREATE TABLE IF NOT EXISTS speakers (
-  id INTEGER PRIMARY KEY DEFAULT nextval('speakers_id_seq'),
-  username VARCHAR(255) NOT NULL,
-  recording_state BOOLEAN NOT NULL DEFAULT FALSE,
-  created_date_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+    id INTEGER DEFAULT nextval('speakers_id_seq'),
+    username VARCHAR(255) PRIMARY KEY NOT NULL,
+    recording_state BOOLEAN NOT NULL DEFAULT FALSE,
+    created_date_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- insert data (sample)
