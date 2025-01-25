@@ -48,6 +48,7 @@ func main() {
 	log.Fatal(http.ListenAndServe(":8888", nil))
 }
 
+// curl "localhost:8888/list-casting-users"
 func listCastingUsersHandler(w http.ResponseWriter, r *http.Request) {
 	config := getDBConfig()
 	db, err := sql.Open("postgres", fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
@@ -97,6 +98,8 @@ func listCastingUsersHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(users)
 }
+
+// curl "localhost:8888/add-casting-user?username=<username>"
 func addCastingUserHandler(w http.ResponseWriter, r *http.Request) {
 	username := r.URL.Query().Get("username")
 	if username == "" {
@@ -128,6 +131,7 @@ func addCastingUserHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "User %s added successfully", username)
 }
 
+// curl "localhost:8888/del-casting-user?username=<username>"
 func delCastingUserHandler(w http.ResponseWriter, r *http.Request) {
 	username := r.URL.Query().Get("username")
 	if username == "" {
@@ -159,6 +163,7 @@ func delCastingUserHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "User %s deleted successfully", username)
 }
 
+// curl "localhost:8888/check-recording-state?username=<username>"
 func checkRecordingStateHandler(w http.ResponseWriter, r *http.Request) {
 	username := r.URL.Query().Get("username")
 	if username == "" {
@@ -195,6 +200,7 @@ func checkRecordingStateHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Recording state for user %s is %s", username, recordingState)
 }
 
+// curl "localhost:8888/update-recording-state?username=<username>&recording_state=<false/true>"
 func updateRecordingStateHandler(w http.ResponseWriter, r *http.Request) {
 	username := r.URL.Query().Get("username")
 	if username == "" {
