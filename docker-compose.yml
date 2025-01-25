@@ -53,7 +53,7 @@ services:
       - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./postgres/data:/var/lib/postgresql/data
     healthcheck:
-      test: ["psql -U ${POSTGRES_USER} -d ${POSTGRES_DB} -c 'SELECT 1'"]
+      test: ["CMD", "psql -U ${POSTGRES_USER} -d ${POSTGRES_DB} -c 'SELECT 1'"]
       interval: 1m30s
       timeout: 30s
       retries: 5
