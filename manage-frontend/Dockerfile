@@ -5,13 +5,13 @@ FROM node:lts
 WORKDIR /app
 
 # Copy package.json and package-lock.json
-COPY manage-frontend/package*.json ./
+COPY twitcasting-manager/package*.json ./
 
 # Install dependencies
 RUN npm install
 
 # Copy the rest of the application code
-COPY manage-frontend/ ./
+COPY twitcasting-manager/ ./
 
 # Build the application
 RUN npm run build
