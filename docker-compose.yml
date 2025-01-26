@@ -51,8 +51,8 @@ services:
   manage-frontend-rec-twitcasting:
     #image: ghcr.io/miutaku/manage-frontend-rec-twitcasting:latest
     build:
-      context: .
-      dockerfile: manage-frontend/Dockerfile
+      context: ./manage-frontend
+      dockerfile: Dockerfile
     container_name: manage-frontend-rec-twitcasting
     restart: unless-stopped
     ports:
