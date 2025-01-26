@@ -11,7 +11,7 @@ COPY twitcasting-manager/package*.json ./
 RUN npm install --legacy-peer-deps
 
 # Copy the rest of the application code
-COPY twitcasting-manager/* ./
+COPY twitcasting-manager/ ./
 
 # Build the application
 RUN npm run build
