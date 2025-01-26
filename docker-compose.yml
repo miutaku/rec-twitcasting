@@ -55,8 +55,8 @@ services:
     restart: unless-stopped
     ports:
       - 3000:3000
-    environment:
-      NEXT_PUBLIC_API_BASE: "http://manage-backend-rec-twitcasting:8888"
+    env_file:
+      - .env
 
   manage-backend-rec-twitcasting:
     image: ghcr.io/miutaku/manage-backend-rec-twitcasting:latest
