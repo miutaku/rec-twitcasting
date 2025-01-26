@@ -1,4 +1,4 @@
-FROM node:23-alpine
+FROM node:lts
 ENV NODE_ENV=development
 
 WORKDIR /usr/src/app
