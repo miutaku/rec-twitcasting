@@ -105,11 +105,11 @@ export default function StreamerList() {
               <p className="text-sm text-muted-foreground">
                 追加日: {new Date(streamer.action_date_time).toLocaleString()}
               </p>
-              <p className="text-sm text-muted-foreground">状態: {streamer.recording_state ? "録画中" : "停止中"}</p>
+              <p className="text-sm text-muted-foreground">状態: {streamer.recording_state ? "配信録画中" : "配信オフライン"}</p>
             </div>
             <div className="flex items-center gap-4">
-              <span className={`text-sm ${streamer.recording_state ? "text-green-500" : "text-red-500"}`}>
-                {streamer.recording_state ? "録画中" : "停止中"}
+              <span className={`text-sm ${streamer.recording_state ? "text-red-500" : "text-green-500"}`}>
+                {streamer.recording_state ? "配信録画中" : "配信オフライン"}
               </span>
               <Button
                 variant="destructive"
