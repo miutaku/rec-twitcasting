@@ -79,7 +79,7 @@ export default function StreamerList() {
       setLoading(false)
     }
   }
-const PageComponent = () => {
+
   const isMobile = useIsMobile()
 
   return (
@@ -102,8 +102,8 @@ const PageComponent = () => {
 
       <div className="grid gap-4">
         {streamers.map((streamer) => (
-          !isMobile && (
-            <><Card key={streamer.target_username}></Card><CardContent className="flex items-center justify-between p-6">
+          <Card key={streamer.target_username}>
+            <CardContent className="flex items-center justify-between p-6">
               <div className="flex flex-col gap-1">
                 <h2 className="text-xl font-semibold">{streamer.target_username}</h2>
                 <p className="text-sm text-muted-foreground">
@@ -124,11 +124,10 @@ const PageComponent = () => {
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </div>
-            </CardContent></>
-          )
+            </CardContent>
+          </Card>
         ))}
       </div>
     </div>
   )
- }
 }
