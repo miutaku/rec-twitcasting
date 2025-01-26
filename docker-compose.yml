@@ -11,8 +11,6 @@ services:
     volumes:
       - ./recorded:/root/recorded
 #      - /your/path/to/dir:./recorded
-    ports:
-      - 18080:8080
     env_file:
       - .env
 
@@ -48,15 +46,17 @@ services:
       - .env
 
 # manage
-#  manage-frontend-rec-twitcasting:
-#    #image: ghcr.io/miutaku/manage-frontend-rec-twitcasting:latest
-#    build:
-#      context: .
-#      dockerfile: manage-frontend/Dockerfile
-#    container_name: manage-frontend-rec-twitcasting
-#    restart: unless-stopped
-#    ports:
-#      - 8888:8888
+  manage-frontend-rec-twitcasting:
+    image: ghcr.io/miutaku/manage-frontend-rec-twitcasting:latest
+    #build:
+    #  context: manage-frontend
+    #  dockerfile: Dockerfile
+    container_name: manage-frontend-rec-twitcasting
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
 
   manage-backend-rec-twitcasting:
     image: ghcr.io/miutaku/manage-backend-rec-twitcasting:latest
@@ -66,6 +66,6 @@ services:
     container_name: manage-backend-rec-twitcasting
     restart: unless-stopped
     ports:
-      - 18888:8888
+      - 8888:8888
     env_file:
       - .env

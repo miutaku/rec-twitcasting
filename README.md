@@ -13,16 +13,18 @@ This application is for recording live streams being broadcasted on twitcasting.
 docker compose up -d
 ```
 
+access to `http://<your-server>:3000`
+
 # API key
 
 You can get the API key from the official page [here](https://twitcasting.tv/developerapp.php).
 
-# Setting env
+# Diagram
 
-If you do not want to run it with Docker, set the environment variables.
+![Docker Compose Diagram](docker-compose.drawio.png)
 
-```shell
-export TWITCASTING_CLIENT_ID=<YOUR_ID>
-export TWITCASTING_CLIENT_SECRET=<YOUR_SECRET>
-export OUTPUT_DIR=<YOUR_RECORDING_DIR_PATH> # if not set, default parameter (./recorded)
-```
+`k8s.drawio` is a conceptual diagram for Kubernetes support that we plan to add in the future.
+
+# License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

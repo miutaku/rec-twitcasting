@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"time"
@@ -47,7 +46,24 @@ func main() {
 	http.HandleFunc("/del-casting-user", delCastingUserHandler)
 	http.HandleFunc("/check-recording-state", checkRecordingStateHandler)
 	http.HandleFunc("/update-recording-state", updateRecordingStateHandler)
-	log.Fatal(http.ListenAndServe(":8888", nil))
+	// CORSミドルウェアを追加
+	http.ListenAndServe(":8888", corsMiddleware(http.DefaultServeMux))
+}
+
+// CORSミドルウェア
+func corsMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+
+		if r.Method == "OPTIONS" {
+			w.WriteHeader(http.StatusOK)
+			return
+		}
+
+		next.ServeHTTP(w, r)
+	})
 }
 
 // curl "localhost:8888/list-casting-users"
