@@ -57,6 +57,8 @@ services:
     restart: unless-stopped
     ports:
       - 8888:8888
+    environment:
+      - NEXT_PUBLIC_API_BASE: "http://manage-backend-rec-twitcasting:8888"
 
   manage-backend-rec-twitcasting:
     image: ghcr.io/miutaku/manage-backend-rec-twitcasting:latest
