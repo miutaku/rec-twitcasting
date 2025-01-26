@@ -92,3 +92,14 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Media Queries for Mobile Responsiveness */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+  .text-balance {
+    font-size: 12px;
+  }
+  /* Add more responsive styles as needed */
+}
