@@ -19,6 +19,10 @@ access to `http://<your-server>:3000`
 
 You can get the API key from the official page [here](https://twitcasting.tv/developerapp.php).
 
+# Diagram
+
+![Docker Compose Diagram](docker-compose.drawio.png)
+
 # License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
