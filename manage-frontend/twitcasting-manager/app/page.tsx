@@ -8,7 +8,6 @@ import { Card, CardContent } from "@/components/ui/card"
 import { listStreamers, addStreamer, deleteStreamer } from "@/lib/api"
 import type { Streamer } from "@/types/streamer"
 import { Loader2, Plus, Trash2 } from "lucide-react"
-import { useIsMobile } from "@/hooks/use-mobile"
 
 export default function StreamerList() {
   const [streamers, setStreamers] = useState<Streamer[]>([])
@@ -79,8 +78,6 @@ export default function StreamerList() {
       setLoading(false)
     }
   }
-const PageComponent = () => {
-  const isMobile = useIsMobile()
 
   return (
     <div className="container mx-auto py-8">
@@ -102,33 +99,30 @@ const PageComponent = () => {
 
       <div className="grid gap-4">
         {streamers.map((streamer) => (
-          !isMobile && (
-            <><Card key={streamer.target_username}></Card><CardContent className="flex items-center justify-between p-6">
-              <div className="flex flex-col gap-1">
-                <h2 className="text-xl font-semibold">{streamer.target_username}</h2>
-                <p className="text-sm text-muted-foreground">
-                  追加日: {new Date(streamer.action_date_time).toLocaleString()}
-                </p>
-                <p className="text-sm text-muted-foreground">状態: {streamer.recording_state ? "配信録画中" : "配信オフライン"}</p>
-              </div>
-              <div className="flex items-center gap-4">
-                <span className={`text-sm ${streamer.recording_state ? "text-red-500" : "text-green-500"}`}>
-                  {streamer.recording_state ? "配信録画中" : "配信オフライン"}
-                </span>
-                <Button
-                  variant="destructive"
-                  size="icon"
-                  onClick={() => handleDeleteStreamer(streamer.target_username)}
-                  disabled={loading}
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </div>
-            </CardContent></>
-          )
+          <><Card key={streamer.target_username}></Card><CardContent className="flex items-center justify-between p-6">
+            <div className="flex flex-col gap-1">
+              <h2 className="text-xl font-semibold">{streamer.target_username}</h2>
+              <p className="text-sm text-muted-foreground">
+                追加日: {new Date(streamer.action_date_time).toLocaleString()}
+              </p>
+              <p className="text-sm text-muted-foreground">状態: {streamer.recording_state ? "配信録画中" : "配信オフライン"}</p>
+            </div>
+            <div className="flex items-center gap-4">
+              <span className={`text-sm ${streamer.recording_state ? "text-red-500" : "text-green-500"}`}>
+                {streamer.recording_state ? "配信録画中" : "配信オフライン"}
+              </span>
+              <Button
+                variant="destructive"
+                size="icon"
+                onClick={() => handleDeleteStreamer(streamer.target_username)}
+                disabled={loading}
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            </div>
+          </CardContent></>
         ))}
       </div>
     </div>
   )
- }
 }
