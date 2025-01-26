@@ -23,6 +23,8 @@ You can get the API key from the official page [here](https://twitcasting.tv/dev
 
 ![Docker Compose Diagram](docker-compose.drawio.png)
 
+`k8s.drawio` is a conceptual diagram for Kubernetes support that we plan to add in the future.
+
 # License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
