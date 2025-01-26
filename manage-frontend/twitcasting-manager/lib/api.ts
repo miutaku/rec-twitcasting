@@ -23,13 +23,6 @@ export async function deleteStreamer(username: string): Promise<void> {
   if (!res.ok) throw new Error("ストリーマーの削除に失敗しました")
 }
 
-export async function updateRecordingState(username: string, state: boolean): Promise<void> {
-  const res = await fetch(`${API_BASE}/update-recording-state?username=${username}&recording_state=${state}`, {
-    method: "PUT",
-  })
-  if (!res.ok) throw new Error("録画状態の更新に失敗しました")
-}
-
 export async function checkRecordingState(username: string): Promise<StreamerResponse> {
   const res = await fetch(`${API_BASE}/check-recording-state?username=${username}`)
   if (!res.ok) throw new Error("録画状態の確認に失敗しました")
