@@ -15,6 +15,10 @@ docker compose up -d
 
 access to `http://<your-server>:3000`
 
+## Hands-on Demo
+
+![Hands-on Demo](hands_on.gif)
+
 # API key
 
 You can get the API key from the official page [here](https://twitcasting.tv/developerapp.php).
