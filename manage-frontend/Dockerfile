@@ -1,4 +1,6 @@
 FROM node:lts
+ARG NEXT_PUBLIC_MANAGE_BACKEND_API_FQDN
+ARG NEXT_PUBLIC_MANAGE_BACKEND_API_PORT
 WORKDIR /app
 COPY twitcasting-manager/package*.json ./
 RUN npm install --legacy-peer-deps
