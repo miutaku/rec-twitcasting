@@ -4,6 +4,31 @@ This application is for recording live streams being broadcasted on twitcasting.
 
 [日本語版はこちら](README_ja.md)
 
+# Important Information
+
+**Please read this carefully.**
+
+## Please Limit to Personal Use Only
+
+Obviously, you must not repost recordings without the streamer's permission.
+
+If any misuse is observed, this repository may be made private.
+
+## When Creating Issues
+
+Bug reports are welcome!
+
+However, please follow these guidelines:
+
+- Use the issue template
+  - Bug report
+  - Feature request
+- Make respectful reports
+- Check if the issue is already known (including previously closed issues)
+
+These rules must be followed.
+Issues may be closed if they do not comply.
+
 # Supporting env
 
 - OS: Linux
