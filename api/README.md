@@ -1,6 +1,7 @@
 # TwitCasting Recording API
 
-This API provides a way to check if a TwitCasting user is live streaming and record their stream using `ffmpeg`. The stream is saved in a specified output directory.
+This API provides a way to check if a TwitCasting user is live streaming and record their stream using `ffmpeg`.
+The stream is saved in a specified output directory.
 
 ## Table of Contents
 

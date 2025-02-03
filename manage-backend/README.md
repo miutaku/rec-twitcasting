@@ -1,4 +1,4 @@
-# API Usage Guide
+# Manage API
 
 This document provides an overview of the API endpoints implemented in the provided Go code. The server runs on `localhost:8888`, and all endpoints return JSON responses.
 

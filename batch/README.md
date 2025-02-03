@@ -1,4 +1,4 @@
-# TwitCasting Recording Application
+# TwitCasting Recording batch
 
 This application is a job that periodically executes an API based on the userdata information in the DB for the TwitCasting recording application.
 

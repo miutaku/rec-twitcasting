@@ -9,6 +9,8 @@ This application is for recording live streams being broadcasted on twitcasting.
 
 # How to use (Quick Start)
 
+Please install Docker (it might work with podman etc., but this is unverified).
+
 ## Preparation
 
 - Please obtain a client ID and client secret from [API Key](#api-key) section. You'll need to specify them as `<YOUR_TWITCASTING_CLIENT_ID>` and `<TWITCASTING_CLIENT_SECRET>`.
