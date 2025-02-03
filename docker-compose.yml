@@ -51,6 +51,8 @@ services:
     build:
       context: manage-frontend
       dockerfile: Dockerfile
+      build_args:
+        NEXT_PUBLIC_MANAGE_BACKEND_ORIGIN: http://localhost:8888
     container_name: manage-frontend-rec-twitcasting
     restart: unless-stopped
     ports:
