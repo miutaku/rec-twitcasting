@@ -7,13 +7,25 @@ This application is for recording live streams being broadcasted on twitcasting.
 - OS: Linux
 - arch: arm64,x64
 
-# How to use
+# How to use (Quick Start)
+
+## Preparation
+
+- Please obtain a client ID and client secret from [API Key](#api-key) section. You'll need to specify them as `<YOUR_TWITCASTING_CLIENT_ID>` and `<TWITCASTING_CLIENT_SECRET>`.
+- Specify the IP address or domain name of the server machine where this application will run as `<BACKEND_SERVER>`.
+  - If you want to run both the frontend (web server application) and backend (API server application) on the same server machine (all-in-one).
+
+## Do it !
 
 ```shell
-docker compose up -d
+$ cp .env_sample .env
+$ sed -i 's/<YOUR_TWITCASTING_CLIENT_ID>/__YOUR_TWITCASTING_CLIENT_ID__/g'
+$ sed -i 's/<TWITCASTING_CLIENT_SECRET>/__TWITCASTING_CLIENT_SECRET__/g'
+$ sed -i 's/<BACKEND_SERVER>/__YOUR_SERVER_IP_OR_FQDN__/g'
+$ docker compose up -d
 ```
 
-access to `http://<your-server>:3000`
+access to `http://__YOUR_SERVER_IP_OR_FQDN__:3000`
 
 ## Hands-on Demo
 
