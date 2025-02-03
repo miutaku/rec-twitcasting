@@ -36,10 +36,6 @@ access to `http://__YOUR_SERVER_IP_OR_FQDN__:3000`
 
 ![Hands-on Demo](hands_on.gif)
 
-## Hands-on Demo
-
-![Hands-on Demo](hands_on.gif)
-
 # API key
 
 You can get the API key from the official page [here](https://twitcasting.tv/developerapp.php).
