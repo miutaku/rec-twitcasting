@@ -1,6 +1,6 @@
 import { Streamer, type StreamerResponse, ApiError } from "@/types/streamer"
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE
+const API_BASE = `${process.env.NEXT_PUBLIC_API_BASE}:${process.env.NEXT_PUBLIC_API_PORT}`
 
 export async function listStreamers(): Promise<StreamerResponse[]> {
   const res = await fetch(`${API_BASE}/list-casting-users`)
