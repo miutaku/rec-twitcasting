@@ -14,6 +14,11 @@ Obviously, you must not repost recordings without the streamer's permission.
 
 If any misuse is observed, this repository may be made private.
 
+## Use at Your Own Risk
+
+Since this application is developed under the MIT License, please use it at your own risk.
+The developer assumes no responsibility for any problems that may occur due to the use of this application.
+
 ## When Creating Issues
 
 Bug reports are welcome!
