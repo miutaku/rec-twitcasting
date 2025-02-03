@@ -2,6 +2,8 @@
 
 This application is for recording live streams being broadcasted on twitcasting.tv.
 
+[日本語版はこちら](README_ja.md)
+
 # Supporting env
 
 - OS: Linux
@@ -10,6 +12,7 @@ This application is for recording live streams being broadcasted on twitcasting.
 # How to use (Quick Start)
 
 Please install Docker (it might work with podman etc., but this is unverified).
+[Official install script](https://github.com/docker/docker-install)
 
 ## Preparation
 
@@ -21,13 +24,17 @@ Please install Docker (it might work with podman etc., but this is unverified).
 
 ```shell
 $ cp .env_sample .env
-$ sed -i 's/<YOUR_TWITCASTING_CLIENT_ID>/__YOUR_TWITCASTING_CLIENT_ID__/g'
-$ sed -i 's/<TWITCASTING_CLIENT_SECRET>/__TWITCASTING_CLIENT_SECRET__/g'
-$ sed -i 's/<BACKEND_SERVER>/__YOUR_SERVER_IP_OR_FQDN__/g'
+$ sed -i 's/<YOUR_TWITCASTING_CLIENT_ID>/__YOUR_TWITCASTING_CLIENT_ID__/g' .env
+$ sed -i 's/<TWITCASTING_CLIENT_SECRET>/__TWITCASTING_CLIENT_SECRET__/g' .env
+$ sed -i 's/<BACKEND_SERVER>/__YOUR_SERVER_IP_OR_FQDN__/g' .env
 $ docker compose up -d
 ```
 
 access to `http://__YOUR_SERVER_IP_OR_FQDN__:3000`
+
+## Hands-on Demo
+
+![Hands-on Demo](hands_on.gif)
 
 ## Hands-on Demo
 
