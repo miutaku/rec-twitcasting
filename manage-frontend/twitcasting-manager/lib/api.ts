@@ -1,8 +1,6 @@
 import { Streamer, type StreamerResponse, ApiError } from "@/types/streamer"
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE && process.env.NEXT_PUBLIC_API_BASE !== "" 
-  ? process.env.NEXT_PUBLIC_API_BASE 
-  : "http://manage-backend-rec-twitcasting:8888"
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE
 
 export async function listStreamers(): Promise<StreamerResponse[]> {
   const res = await fetch(`${API_BASE}/list-casting-users`)
