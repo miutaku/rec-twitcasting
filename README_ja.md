@@ -55,13 +55,13 @@ Dockerをインストールしておいてください（podmanなども動作�
 
 ```shell
 $ cp .env_sample .env
-$ sed -i 's/<YOUR_TWITCASTING_CLIENT_ID>/__YOUR_TWITCASTING_CLIENT_ID__/g' .env
-$ sed -i 's/<TWITCASTING_CLIENT_SECRET>/__TWITCASTING_CLIENT_SECRET__/g' .env
-$ sed -i 's/<BACKEND_SERVER>/__YOUR_SERVER_IP_OR_FQDN__/g' .env
+$ sed -i 's/__YOUR_TWITCASTING_CLIENT_ID__/<YOUR_TWITCASTING_CLIENT_ID>/g' .env
+$ sed -i 's/__TWITCASTING_CLIENT_SECRET__/<TWITCASTING_CLIENT_SECRET>/g' .env
+$ sed -i 's/__YOUR_SERVER_IP_OR_FQDN__/<BACKEND_SERVER>/g' .env
 $ docker compose up -d
 ```
 
-`http://__YOUR_SERVER_IP_OR_FQDN__:3000`にアクセスしてください。
+`http://<BACKEND_SERVER>:3000`にアクセスしてください。
 
 ## ハンズオン
 
