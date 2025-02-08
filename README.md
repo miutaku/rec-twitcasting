@@ -83,7 +83,7 @@ You can get the API key from the official page [here](https://twitcasting.tv/dev
 
 ## Note
 
-Make sure to set the Callback URL to `http://<BACKEND_SERVER>:8888`.
+Make sure to set the Callback URL to `http://<BACKEND_SERVER>:8888/get-twitcasting-code`.
 
 # Diagram
 

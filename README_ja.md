@@ -91,7 +91,7 @@ APIキーは[twitcasting.tv 公式ページ](https://twitcasting.tv/developerapp
 
 ## 注意
 
-Callback URLには、 `http://<BACKEND_SERVER>:8888` を指定しておいてください。
+Callback URLには、 `http://<BACKEND_SERVER>:8888/get-twitcasting-code` を指定しておいてください。
 
 # 構成図
 

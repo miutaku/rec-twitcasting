@@ -50,7 +50,7 @@ func main() {
 	http.HandleFunc("/del-casting-user", delCastingUserHandler)
 	http.HandleFunc("/check-recording-state", checkRecordingStateHandler)
 	http.HandleFunc("/update-recording-state", updateRecordingStateHandler)
-	http.HandleFunc("/code", getOauthCodeHandler) // Handle Twitcasting API OAuth2 callback endpoint
+	http.HandleFunc("/get-twitcasting-code", getOauthCodeHandler) // Handle Twitcasting API OAuth2 callback endpoint
 	http.HandleFunc("/alert-expire-token", alertExpireToken)
 	// CORSミドルウェアを追加
 	http.ListenAndServe(":8888", corsMiddleware(http.DefaultServeMux))
