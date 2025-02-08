@@ -34,41 +34,56 @@ However, please follow these guidelines:
 These rules must be followed.
 Issues may be closed if they do not comply.
 
-# Supporting env
+# Supporting Environment
 
 - OS: Linux
-- arch: arm64,x64
+- Architecture: arm64, x64
 
-# How to use (Quick Start)
+# How to Use (Quick Start)
 
 Please install Docker (it might work with podman etc., but this is unverified).
+[Official install guide (Japanese)](https://docs.docker.jp/linux/step_one.html)
 [Official install script](https://github.com/docker/docker-install)
 
 ## Preparation
 
-- Please obtain a client ID and client secret from [API Key](#api-key) section. You'll need to specify them as `<YOUR_TWITCASTING_CLIENT_ID>` and `<TWITCASTING_CLIENT_SECRET>`.
-- Specify the IP address or domain name of the server machine where this application will run as `<BACKEND_SERVER>`.
+- Please obtain a client ID and client secret from the [API Key](#api-key) section. You'll need to specify them as `<YOUR_TWITCASTING_CLIENT_ID>` and `<TWITCASTING_CLIENT_SECRET>`.
+- Specify the IP address or domain name of the server machine where this application will run as `<YOUR_SERVER>`.
   - If you want to run both the frontend (web server application) and backend (API server application) on the same server machine (all-in-one).
+  - `<BACKEND_SERVER>` will be the same as `<YOUR_SERVER>` in an all-in-one setup.
 
-## Do it !
+## Execution Steps
+
+### 1. Set Environment Variables
 
 ```shell
 $ cp .env_sample .env
 $ sed -i 's/__YOUR_TWITCASTING_CLIENT_ID__/<YOUR_TWITCASTING_CLIENT_ID>/g' .env
 $ sed -i 's/__YOUR_TWITCASTING_CLIENT_SECRET__/<TWITCASTING_CLIENT_SECRET>/g' .env
-$ sed -i 's/__YOUR_SERVER_IP_OR_FQDN__/<BACKEND_SERVER>/g' .env
+$ sed -i 's/__YOUR_SERVER_IP_OR_FQDN__/<YOUR_SERVER>/g' .env
 $ docker compose up -d
 ```
 
-access to `http://<BACKEND_SERVER>:3000`
+### 2. Set up OAuth Authentication
+
+Access `https://apiv2.twitcasting.tv/oauth2/authorize?client_id=<YOUR_TWITCASTING_CLIENT_ID>&response_type=code` in your browser. 
+After allowing the app, you should be redirected to `http://<BACKEND_SERVER>:8888` and OAuth authentication will be complete.
+
+### 3. Start Using
+
+Access `http://<YOUR_SERVER>:3000`
 
 ## Hands-on Demo
 
 ![Hands-on Demo](hands_on.gif)
 
-# API key
+# API Key
 
 You can get the API key from the official page [here](https://twitcasting.tv/developerapp.php).
+
+## Note
+
+Make sure to set the Callback URL to `http://<BACKEND_SERVER>:8888`.
 
 # Diagram
 

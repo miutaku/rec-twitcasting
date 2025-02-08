@@ -20,6 +20,11 @@ CREATE TABLE IF NOT EXISTS speakers (
     created_date_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS api_key (
+    code VARCHAR(255)
+    expires_in timestamp NOT NULL
+);
+
 -- insert data (sample)
 INSERT INTO speakers (username) VALUES('ikutalilas');
 
