@@ -53,9 +53,13 @@ function Calendar({
         day_hidden: "invisible",
         ...classNames,
       }}
-      components={{
-        IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" />,
-        IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />,
+      modifiersClassNames={{
+        selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
+        today: "bg-accent text-accent-foreground",
+      }}
+      modifiersStyles={{
+        selected: { backgroundColor: 'var(--primary)', color: 'var(--primary-foreground)' },
+        today: { backgroundColor: 'var(--accent)', color: 'var(--accent-foreground)' },
       }}
       {...props}
     />
