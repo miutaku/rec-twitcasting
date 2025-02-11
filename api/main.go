@@ -91,16 +91,18 @@ func handleCheckLive(w http.ResponseWriter, r *http.Request) {
 	title := liveInfo.Movie.Title
 	fmt.Printf("User is live streaming. Title: %s\n", title)
 
+	var now time.Time
 	tz := os.Getenv("OUTPUT_TZ")
 	if tz == "" {
-		tz = "UTC"
+		now = time.Now()
+	} else {
+		loc, err := time.LoadLocation(tz)
+		if err != nil {
+			now = time.Now()
+		} else {
+			now = time.Now().In(loc)
+		}
 	}
-	loc, err := time.LoadLocation(tz)
-	if err != nil {
-		http.Error(w, fmt.Sprintf("Failed to load location: %v", err), http.StatusInternalServerError)
-		return
-	}
-	now := time.Now().In(loc)
 	dateDir := now.Format("2006-01-02")
 	timePrefix := now.Format("15-04")
 	safeTitle := sanitizeFilename(title)
