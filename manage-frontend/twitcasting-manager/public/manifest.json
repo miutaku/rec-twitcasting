@@ -1,9 +1,11 @@
 {
-  "name": "TwitCasting Manager",
-  "short_name": "TC Manager",
+  "name": "TwitCasting streamer manager",
+  "short_name": "TC streamer manager",
   "description": "Manage your TwitCasting streamers",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#ffffff",
   "theme_color": "#000000",
   "icons": [
