@@ -105,7 +105,17 @@ export default function StreamerList() {
           <Card key={streamer.target_username}>
             <CardContent className="flex items-center justify-between p-6">
               <div className="flex flex-col gap-1">
-                <h2 className="text-xl font-semibold">{streamer.target_username}</h2>
+                <h2 className="text-xl font-semibold">
+                  <a 
+                  href={`https://twitcasting.tv/${streamer.target_username}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline"
+                  >
+                  {streamer.target_username}
+                  </a>
+                </h2>
+
                 <p className="text-sm text-muted-foreground">
                   追加日: {new Date(streamer.action_date_time).toLocaleString()}
                 </p>
