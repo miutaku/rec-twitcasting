@@ -7,6 +7,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#000000" />
+        <link rel="icon" href="/icons/icon-192x192.png" />
+      </head>
       <body>
         {children}
         <Toaster />
@@ -14,7 +19,5 @@ export default function RootLayout({
     </html>
   )
 }
-
-
 
 import './globals.css'

@@ -47,21 +47,39 @@ Dockerをインストールしておいてください（podmanなども動作�
 
 ## 準備
 
+環境変数で設定する項目があります。
+
 - [APIキー](#apiキー)セクションからクライアントIDとクライアントシークレットを取得してください。それぞれ`<YOUR_TWITCASTING_CLIENT_ID>`と`<TWITCASTING_CLIENT_SECRET>`として指定する必要があります。
-- このアプリケーションを実行するサーバーマシンのIPアドレスまたはドメイン名を`<BACKEND_SERVER>`として指定してください。
+- このアプリケーションを実行するサーバーマシンのIPアドレスまたはドメイン名を`<YOUR_SERVER>`として指定するので確認しておいてください。
     - フロントエンド（Webサーバーアプリケーション）とバックエンド（APIサーバーアプリケーション）を同じサーバーマシンで実行する場合（オールインワン）。
+    - `<BACKEND_SERVER>`は、オールインワンで動かす場合は、`<YOUR_SERVER>`に指定したパラメータが指定されます。
 
 ## 実行手順
 
+### 1. 環境変数の設定
 ```shell
 $ cp .env_sample .env
 $ sed -i 's/__YOUR_TWITCASTING_CLIENT_ID__/<YOUR_TWITCASTING_CLIENT_ID>/g' .env
 $ sed -i 's/__YOUR_TWITCASTING_CLIENT_SECRET__/<TWITCASTING_CLIENT_SECRET>/g' .env
-$ sed -i 's/__YOUR_SERVER_IP_OR_FQDN__/<BACKEND_SERVER>/g' .env
+$ sed -i 's/__YOUR_SERVER_IP_OR_FQDN__/<YOUR_SERVER>/g' .env
 $ docker compose up -d
 ```
 
-`http://<BACKEND_SERVER>:3000`にアクセスしてください。
+* Tips
+アラート設定をしたい場合は、.envの、アラートしたい通知先の必要な情報を指定してください。
+- 例として、LINEに通知したい場合は以下の環境変数の指定をする必要があります。
+  - `LINE_CHANNEL_ACCESS_TOKEN`
+  - `LINE_USER_ID`
+
+### 2. OAuth 認証の設定
+
+ブラウザで`https://apiv2.twitcasting.tv/oauth2/authorize?client_id=<YOUR_TWITCASTING_CLIENT_ID>&response_type=code` にアクセスしてください。
+
+「連携アプリを許可」をすることで、 `http://<BACKEND_SERVER>:8888` にリダイレクトされ、OAuth認証が完了するはずです。
+
+### 3. 利用開始
+
+ブラウザで `http://<YOUR_SERVER>:3000`にアクセスしてください。
 
 ## ハンズオン
 
@@ -70,6 +88,10 @@ $ docker compose up -d
 # APIキー
 
 APIキーは[twitcasting.tv 公式ページ](https://twitcasting.tv/developerapp.php)から取得できます。
+
+## 注意
+
+Callback URLには、 `http://<BACKEND_SERVER>:8888/get-twitcasting-code` を指定しておいてください。
 
 # 構成図
 
