@@ -31,3 +31,6 @@ go.work.sum
 
 # recording files
 recorded/*.mp4
+
+# db
+postgres/data/*
