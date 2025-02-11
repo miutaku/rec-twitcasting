@@ -10,9 +10,9 @@ This application is for recording live streams being broadcasted on twitcasting.
 
 ## Please Limit to Personal Use Only
 
-Obviously, you must not repost recordings without the streamer's permission.
+Obviously, **you must not repost recordings** without the streamer's permission.
 
-If any misuse is observed, this repository may be made private.
+If any misuse is observed, **this repository may be made private**.
 
 ## Use at Your Own Risk
 
@@ -25,7 +25,7 @@ Bug reports are welcome!
 
 However, please follow these guidelines:
 
-- Use the issue template
+- Use the issue template in principle
   - Bug report
   - Feature request
 - Make respectful reports
@@ -47,15 +47,16 @@ Please install Docker (it might work with podman etc., but this is unverified).
 
 ## Preparation
 
+There are items to be set in environment variables.
+
 - Please obtain a client ID and client secret from the [API Key](#api-key) section. You'll need to specify them as `<YOUR_TWITCASTING_CLIENT_ID>` and `<TWITCASTING_CLIENT_SECRET>`.
-- Specify the IP address or domain name of the server machine where this application will run as `<YOUR_SERVER>`.
+- Confirm the IP address or domain name of the server machine where this application will run as `<YOUR_SERVER>`.
   - If you want to run both the frontend (web server application) and backend (API server application) on the same server machine (all-in-one).
   - `<BACKEND_SERVER>` will be the same as `<YOUR_SERVER>` in an all-in-one setup.
 
 ## Execution Steps
 
 ### 1. Set Environment Variables
-
 ```shell
 $ cp .env_sample .env
 $ sed -i 's/__YOUR_TWITCASTING_CLIENT_ID__/<YOUR_TWITCASTING_CLIENT_ID>/g' .env
@@ -64,14 +65,9 @@ $ sed -i 's/__YOUR_SERVER_IP_OR_FQDN__/<YOUR_SERVER>/g' .env
 $ docker compose up -d
 ```
 
-### 2. Set up OAuth Authentication
+### 2. Start Using
 
-Access `https://apiv2.twitcasting.tv/oauth2/authorize?client_id=<YOUR_TWITCASTING_CLIENT_ID>&response_type=code` in your browser. 
-After allowing the app, you should be redirected to `http://<BACKEND_SERVER>:8888` and OAuth authentication will be complete.
-
-### 3. Start Using
-
-Access `http://<YOUR_SERVER>:3000`
+Access `http://<YOUR_SERVER>:3000` in your browser.
 
 ## Hands-on Demo
 
@@ -79,11 +75,7 @@ Access `http://<YOUR_SERVER>:3000`
 
 # API Key
 
-You can get the API key from the official page [here](https://twitcasting.tv/developerapp.php).
-
-## Note
-
-Make sure to set the Callback URL to `http://<BACKEND_SERVER>:8888/get-twitcasting-code`.
+You can get the API key from [twitcasting.tv official page](https://twitcasting.tv/developerapp.php).
 
 # Diagram
 
@@ -93,4 +85,6 @@ Make sure to set the Callback URL to `http://<BACKEND_SERVER>:8888/get-twitcasti
 
 # License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
+
+See the [LICENSE](LICENSE) file for details.
