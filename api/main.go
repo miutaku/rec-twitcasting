@@ -91,8 +91,7 @@ func handleCheckLive(w http.ResponseWriter, r *http.Request) {
 	title := liveInfo.Movie.Title
 	fmt.Printf("User is live streaming. Title: %s\n", title)
 
-	outputTz := os.Getenv("OUTPUT_TZ")
-	outputTimezone, err := time.LoadLocation(outputTz)
+	outputTimezone, err := time.LoadLocation(os.Getenv("OUTPUT_TZ"))
 	if err != nil {
 		panic(err)
 	}
