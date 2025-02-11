@@ -117,7 +117,7 @@ export default function StreamerList() {
                 </h2>
 
                 <p className="text-sm text-muted-foreground">
-                  追加日: {new Date(streamer.action_date_time).toLocaleString()}
+                  追加日: {new Date(streamer.action_date_time).toLocaleString(undefined, { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })}
                 </p>
                 <p className="text-sm text-muted-foreground">状態: {streamer.recording_state ? "配信録画中" : "配信オフライン"}</p>
               </div>
