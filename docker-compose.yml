@@ -11,6 +11,8 @@ services:
     volumes:
       - ./recorded:/root/recorded
 #      - /your/path/to/dir:./recorded
+    environment:
+      - TZ="Asia/Tokyo"
     env_file:
       - .env
 
@@ -25,6 +27,8 @@ services:
         condition: service_healthy
     restart: unless-stopped
     container_name: batch-rec-twitcasting
+    environment:
+      - TZ="Asia/Tokyo"
     env_file:
       - .env
 
@@ -42,6 +46,8 @@ services:
       timeout: 30s
       retries: 5
       start_period: 30s
+    environment:
+      - TZ="UTC"
     env_file:
       - .env
 
@@ -69,5 +75,7 @@ services:
     restart: unless-stopped
     ports:
       - 8888:8888
+    environment:
+      - TZ="UTC"
     env_file:
       - .env
