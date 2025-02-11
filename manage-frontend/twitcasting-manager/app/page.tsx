@@ -117,18 +117,7 @@ export default function StreamerList() {
                 </h2>
 
                 <p className="text-sm text-muted-foreground">
-                  {(() => {
-                  const raw = streamer.action_date_time
-                  // Convert "2025-02-12 08:47:59.284681" to "2025-02-12T08:47:59.284681"
-                  const parsed = new Date(raw.replace(" ", "T"))
-                  const y = parsed.getFullYear()
-                  const m = parsed.getMonth() + 1
-                  const d = parsed.getDate()
-                  const hh = parsed.getHours()
-                  const mm = parsed.getMinutes()
-                  const ss = parsed.getSeconds()
-                  return `追加日: ${y}/${m}/${d} ${hh}:${mm}:${ss}`
-                  })()}
+                  追加日: {new Date(streamer.action_date_time).toLocaleString(navigator.language)}
                 </p>
                 <p className="text-sm text-muted-foreground">状態: {streamer.recording_state ? "配信録画中" : "配信オフライン"}</p>
               </div>
