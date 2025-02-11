@@ -8,6 +8,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"time"
+	_ "time/tzdata"
 
 	"github.com/gorilla/mux"
 	"github.com/nobuf/cas"
