@@ -65,19 +65,7 @@ $ sed -i 's/__YOUR_SERVER_IP_OR_FQDN__/<YOUR_SERVER>/g' .env
 $ docker compose up -d
 ```
 
-* Tips
-アラート設定をしたい場合は、.envの、アラートしたい通知先の必要な情報を指定してください。
-- 例として、LINEに通知したい場合は以下の環境変数の指定をする必要があります。
-  - `LINE_CHANNEL_ACCESS_TOKEN`
-  - `LINE_USER_ID`
-
-### 2. OAuth 認証の設定
-
-ブラウザで`https://apiv2.twitcasting.tv/oauth2/authorize?client_id=<YOUR_TWITCASTING_CLIENT_ID>&response_type=code` にアクセスしてください。
-
-「連携アプリを許可」をすることで、 `http://<BACKEND_SERVER>:8888` にリダイレクトされ、OAuth認証が完了するはずです。
-
-### 3. 利用開始
+### 2. 利用開始
 
 ブラウザで `http://<YOUR_SERVER>:3000`にアクセスしてください。
 
@@ -88,10 +76,6 @@ $ docker compose up -d
 # APIキー
 
 APIキーは[twitcasting.tv 公式ページ](https://twitcasting.tv/developerapp.php)から取得できます。
-
-## 注意
-
-Callback URLには、 `http://<BACKEND_SERVER>:8888/get-twitcasting-code` を指定しておいてください。
 
 # 構成図
 
