@@ -1,4 +1,3 @@
-import './globals.css'
 import { Toaster } from "@/components/ui/toaster"
 
 export default function RootLayout({
@@ -15,3 +14,7 @@ export default function RootLayout({
     </html>
   )
 }
+
+
+
+import './globals.css'
