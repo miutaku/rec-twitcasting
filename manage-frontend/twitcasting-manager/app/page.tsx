@@ -35,13 +35,16 @@ export default function StreamerList() {
     try {
       setLoading(true)
       const data = await listStreamers()
-      setStreamers(data)
+      // Ensure data is an array, if not, use an empty array
+      setStreamers(Array.isArray(data) ? data : [])
     } catch (error) {
       toast({
         variant: "destructive",
         title: "エラー",
         description: "ストリーマーリストの取得に失敗しました",
       })
+      // Set streamers to empty array on error
+      setStreamers([])
     } finally {
       setLoading(false)
     }
