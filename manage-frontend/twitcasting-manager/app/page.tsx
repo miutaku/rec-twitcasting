@@ -5,6 +5,16 @@ import { useToast } from "@/components/ui/use-toast"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
 import { listStreamers, addStreamer, deleteStreamer } from "@/lib/api"
 import type { Streamer } from "@/types/streamer"
 import { Loader2, Plus, Trash2 } from "lucide-react"
@@ -14,6 +24,7 @@ export default function StreamerList() {
   const [streamers, setStreamers] = useState<Streamer[]>([])
   const [newStreamer, setNewStreamer] = useState("")
   const [loading, setLoading] = useState(false)
+  const [streamerToDelete, setStreamerToDelete] = useState<string | null>(null)
   const { toast } = useToast()
 
   useEffect(() => {
@@ -60,6 +71,10 @@ export default function StreamerList() {
     }
   }
 
+  function openDeleteDialog(username: string) {
+    setStreamerToDelete(username)
+  }
+
   async function handleDeleteStreamer(username: string) {
     try {
       setLoading(true)
@@ -77,6 +92,7 @@ export default function StreamerList() {
       })
     } finally {
       setLoading(false)
+      setStreamerToDelete(null)
     }
   }
 
@@ -128,7 +144,7 @@ export default function StreamerList() {
                 <Button
                   variant="destructive"
                   size="icon"
-                  onClick={() => handleDeleteStreamer(streamer.target_username)}
+                  onClick={() => openDeleteDialog(streamer.target_username)}
                   disabled={loading}
                 >
                   <Trash2 className="h-4 w-4" />
@@ -138,6 +154,26 @@ export default function StreamerList() {
           </Card>
         ))}
       </div>
+
+      <AlertDialog open={streamerToDelete !== null} onOpenChange={(open) => !open && setStreamerToDelete(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>ストリーマーを削除しますか？</AlertDialogTitle>
+            <AlertDialogDescription>
+              この操作は元に戻せません。ストリーマー「{streamerToDelete}」を削除してもよろしいですか？
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>キャンセル</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => streamerToDelete && handleDeleteStreamer(streamerToDelete)}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              削除する
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }
